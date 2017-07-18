@@ -1,0 +1,116 @@
+@font-face {
+     font-family: Montserrat;
+     src: url('../../fonts/Montserrat-Regular.ttf');
+}
+@font-face {
+     font-family: Montserrat Light;
+     src: url('../../fonts/Montserrat-Light.ttf');
+}
+
+#nav {
+  font-family: Montserrat;
+  font-weight: bold;
+  color: '#fffefe';
+}
+#nav ul li {
+    color: #fffefe;
+}
+
+#nav ul li.logo-ep:before {
+  width: 5.8em;
+  height: 7em;
+  content: '';
+  display: block;
+  position: absolute;
+  /*bottom: -0.5em;*/
+  left: 50%;
+  margin-left: -12em;
+  background-image: url('../../images/logo.png');
+  z-index: 9999
+}
+
+.menu-login {
+  font-size: 0.5em;
+  display: inline-block !important;
+  background-color: #393939;
+  margin: -1em -2em;
+  margin-left: 1.5em !important;
+  bottom: 0.5em;
+}
+.menu-login a{
+  margin-top: -2em;
+  margin-bottom: -2em;
+}
+
+#nav ul li.menu-login:before {
+  width: 4em;
+  height: 0.5em;
+  content: '';
+  display: block;
+  position: absolute;
+  left:25%;
+  top: -4em;
+  background: #ef7029;
+}
+
+#nav ul li.menu-login:after {
+  width: 4em;
+  height: 0.5em;
+  content: '';
+  display: block;
+  position: absolute;
+  top: -4em;
+  right:50%;
+  /*margin-left: -12em;*/
+  background: #ef7029;
+}
+
+a#criar{
+  color: #ef7029 !important;
+}
+
+
+#banner header h2.banner-texto{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  padding: 4em 0;
+  padding-right: 12em;
+  font-family: 'Montserrat';
+  font-size: 2em;
+  font-weight: bold;
+}
+#banner header p.banner-texto{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  padding: 2em 0;
+  padding-right: 45em;
+  font-family: 'Montserrat ExtraLight';
+  font-size: 0.6em;
+  font-weight: bold;
+}
+
+#banner a.mouse-down {
+  text-decoration: none;
+}
+
+#banner a.mouse-down img {
+  width: 0.8em;
+  padding: 1em 0;
+  cursor: 'pointer';
+}
+
+#programacao h2 {
+  font-family: Montserrat Light;
+  color: #c2192c;
+}
+#programacao h3 {
+  font-family: Montserrat Light;
+  color: #636363;
+  font-size: 0.6em;
+}
