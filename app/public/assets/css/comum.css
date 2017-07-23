@@ -71,25 +71,25 @@ a#criar{
 
 
 #banner header h2.banner-texto{
-  position: absolute;
+  /*position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100%;*/
   color: #fff;
-  padding: 4em 0;
-  padding-right: 12em;
+  /*padding: 4em 0;*/
+  /*padding-right: 12em;*/
   font-family: 'Montserrat';
   font-size: 2em;
   font-weight: bold;
 }
 #banner header p.banner-texto{
-  position: absolute;
+  /*position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100%;*/
   color: #fff;
-  padding: 2em 0;
-  padding-right: 45em;
+  /*padding: 4em 0;*/
+  /*padding-right: 45em;*/
   font-family: 'Montserrat ExtraLight';
   font-size: 0.6em;
   font-weight: bold;
@@ -113,4 +113,75 @@ a#criar{
   font-family: Montserrat Light;
   color: #636363;
   font-size: 0.6em;
+}
+
+.lista-programacao div h3{
+  font-family: Montserrat;
+  font-weight: bold;
+  color: #636363;
+}
+.lista-programacao div p{
+  font-family: Montserrat Light;
+  color: #636363;
+  font-size: 0.6em;
+}
+
+.btn-programacao-completa {
+  border-radius: 0px !important;
+  font-family: Montserrat Light;
+  background-color: #636363 !important;
+}
+
+.btn-vejamais {
+  border-radius: 0px !important;
+  font-family: Montserrat;
+  font-weight: bold;
+  background-color: #FFF !important;
+  color: #c2192c !important;
+  border: solid 3px #c2192c !important;
+  border-radius: 4px !important;
+}
+
+.wrapper.news {
+  background-color: #f1f1f1;
+  padding: 2em 0 3em 0;
+}
+.wrapper.news h3 {
+  font-family: Montserrat Light;
+  color: #636363;
+  font-size: 1em;
+  margin-bottom: 0;
+}
+.wrapper.news h2 {
+  font-family: Montserrat;
+  font-weight: bold;
+  color: #636363;
+  font-size: 1.5em;
+}
+.wrapper.news input[type='text'] {
+  border: solid 2px #636363;
+}
+
+#abrir-conta {
+  background-image: url('../../images/abrir-conta.png');
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+  position: relative;
+  color: #FFF
+}
+
+.btn-abrir-conta {
+  border-radius: 0px !important;
+  font-family: 'Montserrat Light';
+  color: #f1f1f1 !important;
+  border: solid 3px #f1f1f1 !important;
+  border-radius: 4px !important;
+  background-color: transparent !important;
+  padding-top: 6em;
+}
+
+.anuncio-grande {
+  background-color: #dfdcd8;
+  height: 10em;
 }
