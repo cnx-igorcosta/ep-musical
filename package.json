@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./dist/src/bin/www",
-    "start:dev": "nodemon ./app/src/bin/www --exec babel-node",
+    "start:dev": "node_modules/.bin/nodemon ./app/src/bin/www --exec babel-node",
     "build": "rimraf dist [\"ENOTEMPTY\"] && babel app -d dist --ignore app/public && npm run copy-files",
     "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\""
   },
