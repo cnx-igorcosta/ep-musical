@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./dist/src/bin/www",
+    "start": "./node_modules/.bin/babel-node ./app/src/bin/www",
     "start:dev": "node_modules/.bin/nodemon ./app/src/bin/www --exec babel-node",
     "start:prd": "npm run build && npm start",
     "build": "rimraf dist [\"ENOTEMPTY\"] && babel app -d dist --ignore app/public && npm run copy-files",
