@@ -3,7 +3,7 @@ import path from 'path'
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
-//import favicon from 'serve-favicon';
+import favicon from 'serve-favicon';
 
 import dbConfig from './src/config/db'
 import indexRouter from './src/routes/index'
@@ -15,9 +15,7 @@ import indexRouter from './src/routes/index'
 
 const app = express();
 
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,11 +25,13 @@ app.use(dbConfig);
 
 app.use('/public/assets', express.static('assets'));
 app.use('/public/images', express.static('images'));
-var favicon = require('serve-favicon');
-//app.use(favicon(__dirname + '/public/images/favicon.png'));
+app.use(favicon(__dirname + '/public/images/favicon.png'));
 
 //ROUTES
 app.use('/', indexRouter);
+app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
+//DEFAULT PAGE
+app.use((req, res, next) => {res.sendFile('./public/index.html', { root: __dirname  } )});
 // app.use('/empresas', empresasRouter);
 // app.use('/corretores', corretoresRouter);
 // app.use('/canais', canaisRouter);

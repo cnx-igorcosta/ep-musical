@@ -1820,9 +1820,8 @@
 		-webkit-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 		-ms-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 		transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-		color: #37c0fb;
+		color: #fefefe;
 		text-decoration: none;
-		border-bottom: dotted 1px;
 	}
 
 		a:hover {
@@ -1865,7 +1864,7 @@
 	}
 
 	h3 {
-		font-size: 1.2em;
+		/*font-size: 1.2em;*/
 		letter-spacing: -0.025em;
 	}
 
@@ -2303,7 +2302,8 @@
 /* Box */
 
 	.box.highlight {
-		text-align: center;
+		text-align: left;
+		line-height: 1em;
 	}
 
 	.box.post {
@@ -2356,6 +2356,7 @@
 	#nav {
 		cursor: default;
 		background-color: #878686;
+		height: 4em;
 		/*background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.3)), url("images/bg01.png");
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.3)), url("images/bg01.png");
 		background-image: -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.3)), url("images/bg01.png");
@@ -2480,8 +2481,9 @@
 		background-position: center center;
 		background-size: cover;
 		height: 28em;
-		text-align: center;
+		text-align: left;
 		position: relative;
+		z-index: 9998;
 	}
 
 		#banner header {
@@ -2576,7 +2578,7 @@
 /* Footer */
 
 	#footer {
-		padding: 4em 0 8em 0;
+		padding: 4em 0 1em 0;
 	}
 
 		#footer a {
@@ -2590,7 +2592,7 @@
 			}
 
 		#footer .container {
-			margin-bottom: 4em;
+			/*margin-bottom: 4em;*/
 		}
 
 		#footer .icons {
@@ -2661,7 +2663,7 @@
 		/* Header */
 
 			#header {
-				padding: 2em 0 0 0;
+				/*padding: 2em 0 0 0;*/
 			}
 
 				#header h1 {
@@ -2849,14 +2851,10 @@
 				top: 0;
 				width: 100%;
 				z-index: 10001;
-				background-color: #333;
-				background-image: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.3)), url("images/bg01.png");
-				background-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.3)), url("images/bg01.png");
-				background-image: -ms-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.3)), url("images/bg01.png");
-				background-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.3)), url("images/bg01.png");
+				background-color: #878686;
 				height: 44px;
 				line-height: 44px;
-				box-shadow: 0 4px 0 0 #37c0fb;
+				/*box-shadow: 0 4px 0 0 #37c0fb;*/
 			}
 
 				#titleBar .title {
@@ -2882,6 +2880,10 @@
 					top: 0;
 					width: 80px;
 					z-index: 2;
+					/*LOGO MOBILE*/
+					background-image: url(../../images/logo.png);
+					background-size: contain;
+					background-repeat: no-repeat;
 				}
 
 					#titleBar .toggle:before {
@@ -2893,7 +2895,8 @@
 						text-transform: none !important;
 					}
 
-					#titleBar .toggle:before {
+					/*LOGO MOBILE*/
+					/*#titleBar .toggle:before {
 						content: '\f0c9';
 						display: block;
 						height: 44px;
@@ -2901,7 +2904,7 @@
 						width: 44px;
 						color: #fff;
 						opacity: 0.5;
-					}
+					}*/
 
 					#titleBar .toggle:active:before {
 						opacity: 0.75;

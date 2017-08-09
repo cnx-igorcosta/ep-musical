@@ -1,10 +1,10 @@
 @font-face {
      font-family: Montserrat;
-     src: url('../../fonts/Montserrat-Regular.ttf');
+     src: url('../fonts/Montserrat-Regular.ttf');
 }
 @font-face {
      font-family: Montserrat Light;
-     src: url('../../fonts/Montserrat-Light.ttf');
+     src: url('./fonts/Montserrat-Light.ttf');
 }
 
 #nav {
@@ -17,15 +17,16 @@
 }
 
 #nav ul li.logo-ep:before {
-  width: 5.8em;
+  width: 7em;
   height: 7em;
   content: '';
   display: block;
   position: absolute;
   /*bottom: -0.5em;*/
   left: 50%;
-  margin-left: -12em;
+  margin-left: -7em;
   background-image: url('../../images/logo.png');
+  background-repeat: no-repeat;
   z-index: 9999
 }
 
@@ -69,6 +70,10 @@ a#criar{
   color: #ef7029 !important;
 }
 
+.banner-texto {
+  text-align: left;
+  line-height: 1em;
+}
 
 #banner header h2.banner-texto{
   /*position: absolute;
@@ -81,6 +86,7 @@ a#criar{
   font-family: 'Montserrat';
   font-size: 2em;
   font-weight: bold;
+  padding-bottom: 1em;
 }
 #banner header p.banner-texto{
   /*position: absolute;
@@ -93,7 +99,19 @@ a#criar{
   font-family: 'Montserrat ExtraLight';
   font-size: 0.6em;
   font-weight: bold;
+  line-height: 1.75em;
 }
+
+#banner header p.banner-texto:before{
+    background-color: #fff;
+    width: 3%;
+    height: 0.25em;
+    content: '';
+    display: block;
+    position: absolute;
+    top: -1em;
+}
+
 
 #banner a.mouse-down {
   text-decoration: none;
@@ -105,9 +123,45 @@ a#criar{
   cursor: 'pointer';
 }
 
+#banner header:after {
+  background-color: #c2192c;
+  width: 45%;
+  height: 0.20em;
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+/*#programacao:after {
+  background-color: #c2192c;
+  width: 45%;
+  height: 0.25em;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 28em;
+}*/
+
+/*#linha-baixo-banner {
+    background-color: #c2192c;
+    padding-bottom: -2em;
+    height: -1em;
+    display: block;
+    position: relative;
+    top: -4.75em;
+    right: 35em;
+}*/
+
+#programacao{
+  text-align: left;
+  padding-left: 0px;
+
+}
+
 #programacao h2 {
   font-family: Montserrat Light;
   color: #c2192c;
+  margin-bottom: 0.025em;
 }
 #programacao h3 {
   font-family: Montserrat Light;
@@ -115,11 +169,16 @@ a#criar{
   font-size: 0.6em;
 }
 
-.lista-programacao div h3{
+.rogramacao div h3{
   font-family: Montserrat;
   font-weight: bold;
   color: #636363;
 }
+
+.lista-programacao {
+  padding-left: 3em;
+}
+
 .lista-programacao div p{
   font-family: Montserrat Light;
   color: #636363;
@@ -134,11 +193,9 @@ a#criar{
 
 .btn-vejamais {
   border-radius: 0px !important;
-  font-family: Montserrat;
-  font-weight: bold;
   background-color: #FFF !important;
   color: #c2192c !important;
-  border: solid 3px #c2192c !important;
+  border: solid 2px #c2192c !important;
   border-radius: 4px !important;
 }
 
@@ -149,14 +206,14 @@ a#criar{
 .wrapper.news h3 {
   font-family: Montserrat Light;
   color: #636363;
-  font-size: 1em;
+  font-size: 0.8em;
   margin-bottom: 0;
 }
 .wrapper.news h2 {
   font-family: Montserrat;
   font-weight: bold;
   color: #636363;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 .wrapper.news input[type='text'] {
   border: solid 2px #636363;
@@ -184,4 +241,42 @@ a#criar{
 .anuncio-grande {
   background-color: #dfdcd8;
   height: 10em;
+}
+
+#footer {
+  background-color: #696969;
+}
+
+p.footer {
+  color: #fffefe;
+  font-size: 0.5em;
+  line-height: 2em;
+}
+
+img.programacao {
+  max-width: 6em;
+  max-height: 6em;
+}
+
+.news-footer{
+    border: solid 1px #f1f1f1 !important;
+}
+
+div.evento:after {
+  width: 60% ;
+  height: 0.5em;
+  content: '';
+  display: block;
+  position: absolute;
+  background: #ef7029;
+}
+
+#navPanel {
+  background-image: url(../../images/logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.eventos {
+  margin-bottom: 1em;
 }
