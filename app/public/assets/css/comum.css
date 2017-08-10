@@ -16,20 +16,29 @@
     color: #fffefe;
 }
 
-#nav ul li.logo-ep:before {
+#nav:before {
   width: 7em;
   height: 7em;
   content: '';
   display: block;
   position: absolute;
   /*bottom: -0.5em;*/
-  left: 50%;
-  margin-left: -7em;
+  left: 12.25em;
   background-image: url('../../images/logo.png');
   background-repeat: no-repeat;
   z-index: 9999
 }
 
+@media screen and (max-width: 1280px){
+  #nav:before {
+    left: 7em;
+  }
+}
+@media screen and (max-width: 980px){
+  #nav:before {
+    left: 0;
+  }
+}
 .menu-login {
   font-size: 0.5em;
   display: inline-block !important;
@@ -154,7 +163,8 @@ a#criar{
 
 #programacao{
   text-align: left;
-  padding-left: 0px;
+  padding-top: 0px;
+  /*padding-left: 0px;*/
 
 }
 
