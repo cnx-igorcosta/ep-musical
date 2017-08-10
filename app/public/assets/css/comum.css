@@ -23,10 +23,20 @@
   display: block;
   position: absolute;
   /*bottom: -0.5em;*/
-  left: 12.25em;
+  left: 10em;
   background-image: url('../../images/logo.png');
   background-repeat: no-repeat;
   z-index: 9999
+}
+
+#nav:after {
+  background-color: #c2192c;
+  width: 75%;
+  height: 0.25em;
+  content: '';
+  display: block;
+  position: relative;
+  top:4em
 }
 
 @media screen and (max-width: 1280px){
@@ -163,7 +173,7 @@ a#criar{
 
 #programacao{
   text-align: left;
-  padding-top: 0px;
+  padding-top: 1em;
   /*padding-left: 0px;*/
 
 }
