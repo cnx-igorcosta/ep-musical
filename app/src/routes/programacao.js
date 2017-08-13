@@ -26,7 +26,7 @@ router.get('/:nome?/:dia_semana?',(req, res, next) => {
       return res.status(200).json(result);
     });
   });
-}
+});
 
 //POST
 router.post('/', (req, res, next) => {
