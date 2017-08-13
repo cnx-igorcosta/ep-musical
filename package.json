@@ -8,14 +8,12 @@
     "start:prd": "npm run build && npm start",
     "build": "rimraf dist [\"ENOTEMPTY\"] && babel app -d dist --ignore app/public && npm run copy-files",
     "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\"",
-    "create-source:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"]",
-    "copy-files:kinghost": "cpx \"app/public/**\" \"../apps_nodejs/public/\" && cpx \"package.json\" \"../apps_nodejs/\" && cpx \".babelrc\" \"../apps_nodejs/\"",
-    "transpile-code:kinghost": "babel app -d ../apps_nodejs --ignore app/public",
+    "create-source:kinghost": "rimraf kinghost [\"ENOTEMPTY\"]",
+    "copy-files:kinghost": "cpx \"app/public/**\" \"kinghost/public/\" && cpx \"package.json\" \"kinghost/\" && cpx \"package-lock.json\" \"kinghost/\"",
+    "build:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"] && cpx \"kinghost/**\" \"../apps_nodejs/\"",
+    "transpile-code:kinghost": "babel app -d kinghost --ignore app/public",
     "install-dependencies:kinghost": "cd ../apps_nodejs && npm install",
-    "deploy:kinghost": "npm run create-source:kinghost && npm run copy-files:kinghost && npm run install-dependencies:kinghost && npm run transpile-code:kinghost",
     "start:kinghost": "node ../apps_nodejs/app.js"
-
-
   },
   "dependencies": {
     "babel-core": "^6.25.0",
