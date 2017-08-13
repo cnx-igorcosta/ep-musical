@@ -15,6 +15,7 @@ var debug = debugModule('worksite2:server');
 
 const port = normalizePort(process.env.PORT_APP || '3000');
 app.set('port', port);
+app.set('process.env.PORT_APP', process.env.PORT_APP);
 
 /**
  * Create HTTP server.
