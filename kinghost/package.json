@@ -10,10 +10,10 @@
     "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\"",
     "create-source:kinghost": "rimraf kinghost [\"ENOTEMPTY\"]",
     "copy-files:kinghost": "cpx \"app/public/**\" \"kinghost/public/\" && cpx \"package.json\" \"kinghost/\" && cpx \"package-lock.json\" \"kinghost/\"",
-    "build:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"] && cpx \"kinghost/**\" \"../apps_nodejs/\"",
     "transpile-code:kinghost": "babel app -d kinghost --ignore app/public",
-    "install-dependencies:kinghost": "cd ../apps_nodejs && npm install",
-    "start:kinghost": "node ../apps_nodejs/app.js"
+    "package:kinghost": "npm run create-source:kinghost && npm run copy-files:kinghost && npm run transpile-code:kinghost",
+    "build:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"] && cpx \"kinghost/**\" \"../apps_nodejs/\"",
+    "install-dependencies:kinghost": "cd ../apps_nodejs && npm install"
   },
   "dependencies": {
     "babel-core": "^6.25.0",

@@ -62,16 +62,18 @@ app.use('/public/images', _express2.default.static('images'));
 app.use((0, _serveFavicon2.default)(__dirname + '/public/images/favicon.png'));
 
 //ROUTES
-app.use('/', _index2.default);
+//app.use('/', indexRouter);
 app.use('/programacao', _programacao2.default);
 //PAGES
-app.use('/canal', function (req, res, next) {
+//app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
+//DEFAULT PAGE
+//app.use((req, res, next) => {res.sendFile('./public/index.html', { root: __dirname  } )});
+
+//REMOVER QUANDO TERMINAR INDEX
+app.use(function (req, res, next) {
   res.sendFile('./public/canal.html', { root: __dirname });
 });
-//DEFAULT PAGE
-app.use(function (req, res, next) {
-  res.sendFile('./public/index.html', { root: __dirname });
-});
+
 // app.use('/empresas', empresasRouter);
 // app.use('/corretores', corretoresRouter);
 // app.use('/canais', canaisRouter);
