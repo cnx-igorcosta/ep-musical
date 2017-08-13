@@ -6,7 +6,7 @@ const dbConnection =  connection(mysql,{
     user: 'root',
     password : 'root',
     port : 3306, //port mysql
-    database:'db-ep-musical'
+    database:'ep-musical'
   },'request');
 
 module.exports = dbConnection;

@@ -23,7 +23,7 @@
   display: block;
   position: absolute;
   /*bottom: -0.5em;*/
-  left: 10em;
+  left: 15%;
   background-image: url('../../images/logo.png');
   background-repeat: no-repeat;
   z-index: 9999
@@ -36,19 +36,10 @@
   content: '';
   display: block;
   position: relative;
-  top:4em
+  top: 100%;
 }
 
-@media screen and (max-width: 1280px){
-  #nav:before {
-    left: 7em;
-  }
-}
-@media screen and (max-width: 980px){
-  #nav:before {
-    left: 0;
-  }
-}
+
 .menu-login {
   font-size: 0.5em;
   display: inline-block !important;
@@ -142,13 +133,14 @@ a#criar{
   cursor: 'pointer';
 }
 
-#banner header:after {
+#banner:after {
   background-color: #c2192c;
   width: 45%;
   height: 0.20em;
   content: '';
   display: block;
-  position: absolute;
+  position: relative;
+  top: 100%;
 }
 
 /*#programacao:after {
@@ -299,4 +291,15 @@ div.evento:after {
 
 .eventos {
   margin-bottom: 1em;
+}
+
+@media screen and (max-width: 1280px){
+  #nav:before {
+    left: 7em;
+  }
+}
+@media screen and (max-width: 980px){
+  #nav:before {
+    left: 0;
+  }
 }
