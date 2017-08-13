@@ -9,9 +9,10 @@
     "build": "rimraf dist [\"ENOTEMPTY\"] && babel app -d dist --ignore app/public && npm run copy-files",
     "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\"",
     "create-source:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"]",
+    "copy-files:kinghost": "cpx \"app/public/**\" \"../apps_nodejs/public/\" && cpx \"package.json\" \"../apps_nodejs/\" && cpx \".babelrc\" \"../apps_nodejs/\"",
     "transpile-code:kinghost": "babel app -d ../apps_nodejs --ignore app/public",
-    "copy-files:kinghost": "cpx \"app/public/**\" \"../apps_nodejs/public/\" && cpx \"node_modules/**\" \"../apps_nodejs/node_modules/\" && cpx \".babelrc\" \"../apps_nodejs/\"",
-    "deploy:kinghost": "npm run create-source:kinghost && npm run transpile-code:kinghost && npm run copy-files:kinghost",
+    "install-dependencies:kinghost": "cd ../apps_nodejs && npm install",
+    "deploy:kinghost": "npm run create-source:kinghost && npm run copy-files:kinghost && npm run install-dependencies:kinghost && npm run transpile-code:kinghost",
     "start:kinghost": "node ../apps_nodejs/app.js"
 
 
