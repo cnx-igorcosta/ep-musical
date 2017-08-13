@@ -10,7 +10,7 @@
     "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\"",
     "create-source:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"]",
     "transpile-code:kinghost": "babel app -d ../apps_nodejs --ignore app/public",
-    "copy-files:kinghost": "cpx \"app/src/bin/*\" \"../apps_nodejs/src/bin/\" && cpx \"app/public/**\" \"../apps_nodejs/public/\"  && cpx \"node_modules/**\" \"../apps_nodejs/node_modules/\"",
+    "copy-files:kinghost": "cpx \"app/public/**\" \"../apps_nodejs/public/\" && cpx \"node_modules/**\" \"../apps_nodejs/node_modules/\" && cpx \".babelrc\" \"../apps_nodejs/\"",
     "deploy:kinghost": "npm run create-source:kinghost && npm run transpile-code:kinghost && npm run copy-files:kinghost",
     "start:kinghost": "node ../apps_nodejs/app.js"
 
