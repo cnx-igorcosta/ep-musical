@@ -13,7 +13,18 @@ router.get('/:nome?/:dia_semana?',(req, res, next) => {
   req.getConnection((err, connection) => {
     if(err) erro('na conexao com o banco de dados', err, res);
 
-    let query = `SELECT * FROM Programação WHERE 0 = 0`;
+    let query =
+    `SELECT
+      id,
+      nome,
+      dia_semana,
+      hora,
+      descricao,
+      logo
+    FROM
+      Programacao
+    WHERE
+      0 = 0`;
     if(nome){
       query += ` AND nome LIKE ${connection.escape('%'+nome+'%')}`;
     }
