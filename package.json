@@ -8,9 +8,13 @@
     "start:prd": "npm run build && npm start",
     "build": "rimraf dist [\"ENOTEMPTY\"] && babel app -d dist --ignore app/public && npm run copy-files",
     "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\"",
+    "create-source:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"]",
+    "transpile-code:kinghost": "babel app -d ../apps_nodejs --ignore app/public",
     "copy-files:kinghost": "cpx \"app/src/bin/*\" \"../apps_nodejs/src/bin/\" && cpx \"app/public/**\" \"../apps_nodejs/public/\"  && cpx \"node_modules/**\" \"../apps_nodejs/node_modules/\"",
-    "deploy:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"] && babel app -d ../apps_nodejs --ignore app/public && npm run copy-files:kinghost",
+    "deploy:kinghost": "npm run create-source:kinghost && npm run transpile-code:kinghost && npm run copy-files:kinghost",
     "start:kinghost": "node ../apps_nodejs/app.js"
+
+
   },
   "dependencies": {
     "babel-core": "^6.25.0",
