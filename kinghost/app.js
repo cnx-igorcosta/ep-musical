@@ -62,16 +62,17 @@ app.use('/public/images', _express2.default.static('images'));
 app.use((0, _serveFavicon2.default)(__dirname + '/public/images/favicon.png'));
 
 //ROUTES
-//app.use('/', indexRouter);
+app.use('/', _index2.default);
 app.use('/programacao', _programacao2.default);
-//PAGES
 //app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
-//DEFAULT PAGE
-//app.use((req, res, next) => {res.sendFile('./public/index.html', { root: __dirname  } )});
 
+//PAGES
+app.use('/controle-programacao', function (req, res, next) {
+  res.sendFile('./public/programacao-controle.html', { root: __dirname });
+});
 //REMOVER QUANDO TERMINAR INDEX
 app.use(function (req, res, next) {
-  res.sendFile('./public/canal.html', { root: __dirname });
+  res.sendFile('./public/index.html', { root: __dirname });
 });
 
 // app.use('/empresas', empresasRouter);
@@ -98,13 +99,12 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-var port = normalizePort(process.env.PORT_APP || '3000');
+var port = normalizePort(process.env.PORT_APP || '3001');
 var server = _http2.default.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 console.log('Server running at :' + port);
-console.log('process.env.PORT_APP', process.env.PORT_APP);
 
 function normalizePort(val) {
   var port = parseInt(val, 10);

@@ -38,33 +38,55 @@
 						<section class="2u 6u(narrower) 12u$(mobilep)">
 						</section>
 						<section id="programacao" class="10u 12u$(narrower) 12u$(mobilep)">
-							<h2>TRANSMISSÃO AO VIVO!</h2>
-							<h3>TUDO QUE ROLA AO VIVO PRA VOCÊ!</h3>
+							<h2>CADASTRO DE PROGRAMAÇÕES</h2>
+							<!-- <h3>TUDO QUE ROLA AO VIVO PRA VOCÊ!</h3> -->
 						</section>
 					</div>
+					<div class="container">
 					<div class="row">
-						<section class="2u 12u"></section>
-						<section class="8u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;">
-							<link href="http://vjs.zencdn.net/6.0.0/video-js.css" rel="stylesheet">
-								<style>.video-js .vjs-time-control{display: none;}.video-js .vjs-progress-control{display: none;}</style>
-								<video id="player_webtv" class="video-js vjs-big-play-centered vjs-fluid" autoplay  controls preload="auto" width="100%" height="100%" data-setup="{ 'fluid':true,'aspectRatio':'16:9' }" >
-								   <source src="http://stmv1.video.foxsolucoes.net/demo22/demo22/playlist.m3u8" type="application/x-mpegURL">
-								</video>
-								<script src="//vjs.zencdn.net/6.0.0/video.js"></script>
-								<script src="//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.8.2/videojs-contrib-hls.min.js"></script>
-								<script>var myPlayer=videojs('player_webtv',{},function(){var player=this;player.on("pause",function(){player.one("play",function(){player.load();player.play();});});})</script>
+						<section class="12u 12u(narrower)">
+							<form>
+								<div class="row 50%">
+									<div class="6u 12u(mobilep)">
+										<input type="text" name="titulo" id="titulo" placeholder="Nome" />
+									</div>
+									<div class="6u 12u(mobilep)">
+										<select name="dia_semana" id="dia_semana">
+											<option value="">Selecione o dia da semana</option>
+											<option value="1">Domingo</option>
+											<option value="1">Segunda</option>
+											<option value="1">Terça</option>
+											<option value="1">Quarta</option>
+											<option value="1">Quinta</option>
+											<option value="1">Sexta</option>
+											<option value="1">Sábado</option>
+										</select>
+									</div>
+									<div class="6u 12u(mobilep)">
+										<input type="text" name="hora_inicio" id="hora_inicio" placeholder="Hora de início" />
+									</div>
+									<div class="6u 12u(mobilep)">
+										<input type="text" name="hora_fim" id="hora_fim" placeholder="Hora de fim" />
+									</div>
+								</div>
+								<div class="row 50%">
+									<div class="6u 12u(mobilep)">
+										<input type="text" name="imagem" id="imagem" placeholder="Imagem do programa" />
+									</div>
+									<div class="6u 12u(mobilep)">
+										<textarea name="descricao" id="descricao" placeholder="Descrição" rows="3"></textarea>
+									</div>
+								</div>
+								<div class="row 50%">
+									<div class="12u">
+										<ul class="actions">
+											<li><input type="submit" class="button alt" value="Salvar" /></li>
+											<li><a class="button alt" >Limpar</a></li>
+										</ul>
+									</div>
+								</div>
+							</form>
 						</section>
-						<section class="2u 12u"></section>
-					</div>
-					<div class="row">
-						<section class="2u 12u"></section>
-						<!-- <section class="8u 12u(narrower) 12u$(mobilep)" style="height:250px"> -->
-							<!-- <script id="cid0020000162801589549" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 100%;height: 100%;">{"handle":"teste-epmusical","arch":"js","styles":{"a":"ef7029","b":100,"c":"FFFFFF","d":"FFFFFF","k":"ef7029","l":"ef7029","m":"ef7029","n":"FFFFFF","p":"10","q":"ef7029","r":100,"ab":false,"usricon":0,"surl":0,"showx":0,"useonm":1}}</script> -->
-							<!-- Begin chatwing.com chatbox -->
-							<iframe src="https://chatwing.com/chatbox/c4abf450-7c9e-11e7-b391-c1c8921d4a93" class="8u 12u(narrower) 12u$(mobilep)" style="height:300px; padding-top: 1em;" frameborder="0" scrolling="0">Please contact us at info@chatwing.com if you cant embed the chatbox</iframe>
-							<!-- End chatwing.com chatbox -->
-						<!-- </section> -->
-						<section class="2u 12u"></section>
 					</div>
 				</section>
 

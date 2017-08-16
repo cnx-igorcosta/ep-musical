@@ -29,15 +29,14 @@ app.use('/public/images', express.static('images'));
 app.use(favicon(__dirname + '/public/images/favicon.png'));
 
 //ROUTES
-//app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/programacao', programacaoRouter);
-//PAGES
 //app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
-//DEFAULT PAGE
-//app.use((req, res, next) => {res.sendFile('./public/index.html', { root: __dirname  } )});
 
+//PAGES
+app.use('/controle-programacao', (req, res, next) => {res.sendFile('./public/programacao-controle.html', { root: __dirname  } )});
 //REMOVER QUANDO TERMINAR INDEX
-app.use((req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
+app.use((req, res, next) => {res.sendFile('./public/index.html', { root: __dirname  } )});
 
 // app.use('/empresas', empresasRouter);
 // app.use('/corretores', corretoresRouter);
@@ -63,13 +62,12 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-const port = normalizePort(process.env.PORT_APP || '3000');
+const port = normalizePort(process.env.PORT_APP || '3001');
 const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 console.log('Server running at :' + port);
-console.log('process.env.PORT_APP', process.env.PORT_APP);
 
 
 function normalizePort(val) {

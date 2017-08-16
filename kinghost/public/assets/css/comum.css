@@ -303,3 +303,12 @@ div.evento:after {
     left: 0;
   }
 }
+
+select {
+  border-radius: 4px;
+  border: solid 1px #e0e0e0;
+  height: 3em;
+  width: 100%;
+  cursor: pointer;
+  text-indent: 0.5em;
+}
