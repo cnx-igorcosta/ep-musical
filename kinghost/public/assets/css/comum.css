@@ -312,3 +312,7 @@ select {
   cursor: pointer;
   text-indent: 0.5em;
 }
+
+.coluna-programacao {
+  padding-left: 0 !important;
+}
