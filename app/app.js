@@ -32,9 +32,11 @@ app.use(favicon(__dirname + '/public/images/favicon.png'));
 app.use('/', indexRouter);
 app.use('/programacao', programacaoRouter);
 //app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
-
 //PAGES
-app.use('/controle-programacao', (req, res, next) => {res.sendFile('./public/programacao-controle.html', { root: __dirname  } )});
+// app.use('/controle-programacao', (req, res, next) => {res.sendFile('./public/programacao-controle.html', { root: __dirname })});
+app.use('/controle-programacao', (req, res, next) => {
+  res.sendFile(path.resolve(__dirname,'./public/programacao-controle.html'))
+  });
 //REMOVER QUANDO TERMINAR INDEX
 app.use((req, res, next) => {res.sendFile('./public/index.html', { root: __dirname  } )});
 

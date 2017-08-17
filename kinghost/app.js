@@ -65,10 +65,10 @@ app.use((0, _serveFavicon2.default)(__dirname + '/public/images/favicon.png'));
 app.use('/', _index2.default);
 app.use('/programacao', _programacao2.default);
 //app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
-
 //PAGES
+// app.use('/controle-programacao', (req, res, next) => {res.sendFile('./public/programacao-controle.html', { root: __dirname })});
 app.use('/controle-programacao', function (req, res, next) {
-  res.sendFile('./public/programacao-controle.html', { root: __dirname });
+  res.sendFile(_path2.default.resolve(__dirname, './public/programacao-controle.html'));
 });
 //REMOVER QUANDO TERMINAR INDEX
 app.use(function (req, res, next) {
