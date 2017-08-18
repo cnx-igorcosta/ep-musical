@@ -4,8 +4,8 @@
   border: 1px solid rgba(0, 0, 0, 0.04);
   overflow: hidden;
   position: relative;
-  text-align: center;
-  border-radius: 4px; }
+  text-align: left;
+}
 
 .image-overlay-content {
   width: 100%;
@@ -19,13 +19,14 @@
   letter-spacing: 0.15em;
   color: #f4f4f4;
   font-size: 28px;
-  opacity: 0;
-  transition: all 0.2s linear; }
+  opacity: 1;
+  /*transition: all 0.2s linear; */
+}
 .overlay-fade-in img {
   transition: all 0.2s linear; }
 .overlay-fade-in .image-overlay-content {
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease-in-out; }
 .overlay-fade-in h2 {
   color: #f2f2f2;
