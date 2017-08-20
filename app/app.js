@@ -64,7 +64,7 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-const port = normalizePort(process.env.PORT_APP || '3001');
+const port = normalizePort(process.env.PORT_APP || process.env.PORT || '3001');
 const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
