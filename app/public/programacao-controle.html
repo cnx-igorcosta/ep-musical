@@ -4,7 +4,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html ng-app="epmusicalApp">
 	<head>
 		<title>EP Musical</title>
 		<meta charset="utf-8" />
@@ -48,36 +48,33 @@
 					<div class="row">
 						<section class="2u 12u(narrower)"></section>
 						<section class="8u 12u(narrower)">
+							<h3 ng-show="prgCtrl.mensagem">{{prgCtrl.mensagem}}</h2>
 							<form>
 								<div class="row 50%">
 									<div class="6u 12u(mobilep)">
-										<input type="text" name="titulo" id="titulo" placeholder="Nome" />
+										<input type="text" id="titulo" placeholder="Nome" ng-model="prgCtrl.programa.nome"/>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<select name="dia_semana" id="dia_semana">
-											<option value="">Selecione o dia da semana</option>
-											<option value="1">Domingo</option>
-											<option value="2">Segunda</option>
-											<option value="3">Terça</option>
-											<option value="4">Quarta</option>
-											<option value="5">Quinta</option>
-											<option value="6">Sexta</option>
-											<option value="7">Sábado</option>
+										<select name="dia_semana" id="dia_semana"
+														ng-model="prgCtrl.programa.dia_semana">
+											<option ng-selected="prgCtrl.programa.dia_semana == dia.id"
+											        ng-repeat="dia in prgCtrl.dias"
+											        ng-value="dia.id">{{dia.label}}</option>
 										</select>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<input type="text" name="hora_inicio" id="hora_inicio" placeholder="Hora de início" />
+										<input type="text" id="hora_inicio" placeholder="Hora inicial" ng-model="prgCtrl.programa.hora_inicial"  mask='29:59'/>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<input type="text" name="hora_fim" id="hora_fim" placeholder="Hora de fim" />
+										<input type="text" name="hora_fim" id="hora_fim" placeholder="Hora de fim" ng-model="prgCtrl.programa.hora_final" mask='29:59'/>
 									</div>
 								</div>
 								<div class="row 50%">
 									<div class="6u 12u(mobilep)">
-										<textarea name="descricao" id="descricao" placeholder="Descrição" rows="3"></textarea>
+										<textarea name="descricao" id="descricao" placeholder="Descrição" rows="3" ng-model="prgCtrl.programa.descricao"></textarea>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<input type="file" name="file-7[]" id="file-7" class="inputfile inputfile-6" />
+										<input type="file" name="file-7[]" id="file-7" class="inputfile inputfile-6" onchange="angular.element(this).scope().prgCtrl.uploadFile(this.files);"/>
 										<label for="file-7"><span></span> <strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg>Escolher imagem&hellip;</strong></label>
 									</div>
 								</div>
@@ -272,8 +269,14 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
-
+			<!-- ANGULAR -->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
+			<script src="assets/js/angular/epmusical-app.js"></script>
+			<script src="assets/js/angular/programacao-ctrl.js"></script>
+			<!-- EXTERNAL LIBS -->
 			<script src="assets/js/lib/jquery.custom-file-input.js"></script>
+			<script src="assets/js/lib/ngMask.min.js"></script>
 
 	</body>
 </html>

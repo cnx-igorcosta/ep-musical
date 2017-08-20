@@ -11,6 +11,17 @@ App.controller('programacaoCtrl', function($scope, $resource){
   prgCtrl.mensagem = '';
   prgCtrl.programa = {};
   prgCtrl.programas = [];
+  prgCtrl.programa.dia_semana = 0;
+  prgCtrl.dias = [
+    {"id": 0, "label": "Selecione o dia da semana"},
+    {"id": 1, "label": "Domingo"},
+    {"id": 2, "label": "Segunda"},
+    {"id": 3, "label": "Terça"},
+    {"id": 4, "label": "Quarta"},
+    {"id": 5, "label": "Quinta"},
+    {"id": 6, "label": "Sexta"},
+    {"id": 7, "label": "Sábado"}
+  ];
   prgCtrl.isDetalhar = false;
 
   prgCtrl.iniciar = function(){
@@ -96,6 +107,7 @@ App.controller('programacaoCtrl', function($scope, $resource){
   prgCtrl.limpar = function(){
     prgCtrl.mensagem = '';
     prgCtrl.programa = {};
+    prgCtrl.programa.dia_semana = 0;
     prgCtrl.isDetalhar = false;
     prgCtrl.listar();
   };
@@ -108,6 +120,20 @@ App.controller('programacaoCtrl', function($scope, $resource){
     prgCtrl.mensagem = 'Ocorreu um erro '+error.data.mensagem;
     console.log(error);
   };
+
+  prgCtrl.uploadFile = function(files) {
+    //var fd = new FormData();
+    //Take the first selected file
+    //fd.append("file", files[0]);
+    prgCtrl.programa.logo = files[0];
+    console.log(prgCtrl.programa);
+
+    // $http.post(uploadUrl, fd, {
+    //     withCredentials: true,
+    //     headers: {'Content-Type': undefined },
+    //     transformRequest: angular.identity
+    // }).success( ...all right!... ).error( ..damn!... );
+};
 
 });
 
