@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs';
 import nextIdModule from '../util/next-id';
 
 const router = express.Router();
@@ -18,7 +19,8 @@ router.get('/:nome?/:dia_semana?',(req, res, next) => {
       id,
       nome,
       dia_semana,
-      hora,
+      hora_inicial,
+      hora_final,
       descricao,
       logo
     FROM
@@ -42,29 +44,29 @@ router.get('/:nome?/:dia_semana?',(req, res, next) => {
 //POST
 router.post('/', (req, res, next) => {
   const programacao = req.body;
+  programacao.imagem = new Buffer(programacao.logo, 'base64');
 
   req.getConnection((err, connection) => {
     if(err) erro('na conexao com o banco de dados', err, res);
-
     nextId.get(connection, (err, id) => {
       if(err) erro('ao gerar Id', err, res);
 
       const query =
       `INSERT INTO
-        CorretorSeguradoraCanal
-          (id, nome, dia_semana, hora, descricao, logo)
+        Programacao
+          (id, nome, dia_semana, hora_inicial, hora_final, descricao, logo)
         VALUES
-          (?, ?, ?, ?, ?, ?)`;
+          (?, ?, ?, ?, ?, ?, ?)`;
 
       const params = [
         id,
         programacao.nome,
         programacao.dia_semana,
-        programacao.hora,
+        programacao.hora_inicial,
+        programacao.hora_final,
         programacao.descricao,
-        programacao.logo,
+        programacao.imagem,
       ];
-      console.log(params);
       connection.query(query, params, (err, result) => {
           if(err) erro('ao inserir Programação', err, res);
 
@@ -85,11 +87,7 @@ router.put('/', (req, res, next) => {
     `UPDATE
       Programacao
     SET
-      nome = ?,
-      dia_semana = ?,
-      hora = ?,
-      descricao = ?,
-      logo = ?
+      nome = ?, dia_semana = ?, hora = ?, descricao = ?, logo = ?
     WHERE
       id = ?`;
 
@@ -118,5 +116,18 @@ function erro(mensagem, err, res){
   };
   res.status(400).json(retornoErro);
 }
+
+// function decodeBase64Image(dataString) {
+//   var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+//   var retorno = {};
+//
+//   if (matches.length !== 3) {
+//     return new Error('Invalid input string');
+//   }
+//   retorno.type = matches[1];
+//   retorno.data = new Buffer(matches[2], 'base64');
+//   console.log('retorno: ',retorno);
+//   return retorno;
+// }
 
 module.exports = router;

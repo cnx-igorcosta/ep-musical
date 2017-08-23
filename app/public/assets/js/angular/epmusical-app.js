@@ -1,1 +1,1 @@
-var App = angular.module('epmusicalApp', ['ngResource', 'ngMask']);
+var App = angular.module('epmusicalApp', ['ngResource', 'ngMask', 'base64']);

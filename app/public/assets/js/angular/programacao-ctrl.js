@@ -1,4 +1,4 @@
-App.controller('programacaoCtrl', function($scope, $resource){
+App.controller('programacaoCtrl', function($scope, $resource, $base64){
   var prgCtrl = this;
 
   var ProgramacaoService = $resource('/programacao/', null, {
@@ -9,6 +9,7 @@ App.controller('programacaoCtrl', function($scope, $resource){
   });
 
   prgCtrl.mensagem = '';
+  prgCtrl.logo = null;
   prgCtrl.programa = {};
   prgCtrl.programas = [];
   prgCtrl.programa.dia_semana = 0;
@@ -33,8 +34,10 @@ App.controller('programacaoCtrl', function($scope, $resource){
     prgCtrl.isDetalhar = true;
   }
 
-  prgCtrl.salvar = function(programa){
-    var programaSalvar = programa;
+  prgCtrl.salvar = function(){
+    var programaSalvar = prgCtrl.programa;
+    programaSalvar.logo = prgCtrl.logo;
+    //console.log(programaSalvar);
 
     if(prgCtrl.isValido()){
       if(programaSalvar.id){
@@ -93,19 +96,20 @@ App.controller('programacaoCtrl', function($scope, $resource){
   prgCtrl.isValido = function(){
     prgCtrl.mensagem = '';
     var retorno = true;
-    if(!prgCtrl.programa.nome){
-      prgCtrl.mensagem = 'Campo Nome é obrigatório';
-      retorno = false;
-    }
-    if(!prgCtrl.programa.alias){
-      prgCtrl.mensagem = 'Campo Alias é obrigatório';
-      retorno = false;
-    }
+    // if(!prgCtrl.programa.nome){
+    //   prgCtrl.mensagem = 'Campo Nome é obrigatório';
+    //   retorno = false;
+    // }
+    // if(!prgCtrl.programa.alias){
+    //   prgCtrl.mensagem = 'Campo Alias é obrigatório';
+    //   retorno = false;
+    // }
     return retorno;
   };
 
   prgCtrl.limpar = function(){
     prgCtrl.mensagem = '';
+    prgCtrl.logo = null;
     prgCtrl.programa = {};
     prgCtrl.programa.dia_semana = 0;
     prgCtrl.isDetalhar = false;
@@ -122,17 +126,16 @@ App.controller('programacaoCtrl', function($scope, $resource){
   };
 
   prgCtrl.uploadFile = function(files) {
-    //var fd = new FormData();
-    //Take the first selected file
-    //fd.append("file", files[0]);
-    prgCtrl.programa.logo = files[0];
-    console.log(prgCtrl.programa);
-
-    // $http.post(uploadUrl, fd, {
-    //     withCredentials: true,
-    //     headers: {'Content-Type': undefined },
-    //     transformRequest: angular.identity
-    // }).success( ...all right!... ).error( ..damn!... );
+    var f = files[0];
+    var r = new FileReader();
+    //callback after files finish loading
+    r.onloadend = function(e) {
+       prgCtrl.logo = e.target.result;
+       //replace regex if you want to rip off the base 64 "header"
+       //console.log('b64: '+prgCtrl.logo.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
+       //here you can send data over your server as desired
+     }
+     r.readAsDataURL(f); //once defined all callbacks, begin reading the file
 };
 
 });
