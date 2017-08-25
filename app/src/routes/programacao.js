@@ -36,6 +36,7 @@ router.get('/:nome?/:dia_semana?',(req, res, next) => {
     connection.query(query, (err, result) => {
       if(err) erro('ao buscar Programação', err, res);
 
+      blobToBase64(result);
       return res.status(200).json(result);
     });
   });
@@ -44,8 +45,9 @@ router.get('/:nome?/:dia_semana?',(req, res, next) => {
 //POST
 router.post('/', (req, res, next) => {
   const programacao = req.body;
+  console.log('req.body: '+req.body);
   programacao.imagem = new Buffer(programacao.logo, 'base64');
-
+  console.log('vai salvar');
   req.getConnection((err, connection) => {
     if(err) erro('na conexao com o banco de dados', err, res);
     nextId.get(connection, (err, id) => {
@@ -115,6 +117,15 @@ function erro(mensagem, err, res){
     serverError: err
   };
   res.status(400).json(retornoErro);
+}
+
+function blobToBase64(programas) {
+  for(let i = 0; i < programas.length; i++) {
+    let programa = programas[i];
+    if(programa.logo){
+      programa.logo = new Buffer( programa.logo, 'binary' ).toString('base64');
+    }
+  }
 }
 
 // function decodeBase64Image(dataString) {

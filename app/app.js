@@ -18,7 +18,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:1024102420, type:'application/json'}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

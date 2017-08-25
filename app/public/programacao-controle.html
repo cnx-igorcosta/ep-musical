@@ -92,131 +92,14 @@
 						<section class="12u 12u(narrower)">
 							<div class="row">
 									<div class="1u 12u(narrower) 12u(mobilep) "></div>
-									<div id="coluna_segunda" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
+									<div id="coluna_segunda" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao" >
+										<div class="pic image-wrapper overlay-fade-in" ng-repeat="prg in prgCtrl.programas">
+								      <img data-ng-src="data:image/jpeg;base64,{{prg.logo}}">
 								      <div class="image-overlay-content">
-								        <h2>Segunda 19H</h2>
+								        <h2>{{prg.dia_semana}} {{prg.hora_inicial}}H</h2>
 								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
 								      </div>
 							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Segunda 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_terca" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Terça 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Terça 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_quarta" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Quarta 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in" >
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Quarta 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Quarta 21H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_quinta" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Quinta 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Quinta 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_sexta" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Sexta 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-									</div>
-									<div id="coluna_sabado" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Sábado 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Sábado 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Sábado 21H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Sábado 23H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_domingo" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Domingo 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Domingo 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
 									</div>
 									<div class="1u 12u(narrower) 12u(mobilep)"></div>
 							</div>

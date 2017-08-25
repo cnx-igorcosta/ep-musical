@@ -37,7 +37,6 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   prgCtrl.salvar = function(){
     var programaSalvar = prgCtrl.programa;
     programaSalvar.logo = prgCtrl.logo;
-    //console.log(programaSalvar);
 
     if(prgCtrl.isValido()){
       if(programaSalvar.id){
@@ -82,8 +81,17 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     prgCtrl.mensagem = '';
     ProgramacaoService.query(function(retorno){
         prgCtrl.programas = retorno;
+        prgCtrl.base64ToImage();
     }, prgCtrl.tratarErro);
   };
+
+  prgCtrl.base64ToImage = function() {
+    for(var i = 0; i < prgCtrl.programas.length; i++) {
+      var programa = prgCtrl.programas[i];
+      if(programa.logo)
+        programa.logo = programa.logo.replace(/data:?image\/(jpeg|png|jpg);?base64,?/,'');
+    }
+  }
 
   prgCtrl.deletar = function(programa){
     ProgramacaoService.delete({id: programa.id}, function(retorno){
@@ -127,17 +135,15 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
 
   prgCtrl.uploadFile = function(files) {
     var f = files[0];
+    console.log(f.size);
     var r = new FileReader();
-    //callback after files finish loading
     r.onloadend = function(e) {
        prgCtrl.logo = e.target.result;
-       //replace regex if you want to rip off the base 64 "header"
-       //console.log('b64: '+prgCtrl.logo.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
-       //here you can send data over your server as desired
      }
      r.readAsDataURL(f); //once defined all callbacks, begin reading the file
-};
+   };
 
+   prgCtrl.iniciar();
 });
 
  function iniciarPrograma(){
