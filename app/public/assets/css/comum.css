@@ -314,5 +314,25 @@ select {
 }
 
 .coluna-programacao {
-  padding-left: 0 !important;
+  width: 250px !important;
+  height: 250px !important;
+}
+div.semana {
+  padding-top: 5em;
+}
+
+.semana li{
+  display: inline;
+  padding-right: 1em;
+  font-size: small;
+  color: #c2192c;
+  cursor: pointer;
+}
+.semana li.current {
+  font-weight: bold;
+}
+
+.pic {
+  width: 100% !important;
+  height: 100% !important;
 }

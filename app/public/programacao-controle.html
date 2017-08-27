@@ -58,7 +58,7 @@
 										<select name="dia_semana" id="dia_semana"
 														ng-model="prgCtrl.programa.dia_semana">
 											<option ng-selected="prgCtrl.programa.dia_semana == dia.id"
-											        ng-repeat="dia in prgCtrl.dias"
+											        ng-repeat="dia in prgCtrl.diasSelect"
 											        ng-value="dia.id">{{dia.label}}</option>
 										</select>
 									</div>
@@ -89,19 +89,108 @@
 							</form>
 						</section>
 						<section class="2u 12u(narrower)"></section>
-						<section class="12u 12u(narrower)">
+					</div>
+
+					<div class="row semana">
+						<section class="2u 12u(narrower)">
+						</section>
+						<section id="programacao" class="10u 12u$(narrower) 12u$(mobilep)">
+							<h2>GRADE DE PROGRAMAÇÃO</h2>
+							<nav>
+								<ul>
+									<li ng-repeat="dia in prgCtrl.diasSemanaNav"
+											ng-class="{'current': dia.id === prgCtrl.diaNav}"
+											ng-click="prgCtrl.mostrarDia(dia.id)">{{dia.label}}</li>
+								</ul>
+							</nav>
+						</section>
+					</div>
+
+					<div class="row" ng-repeat="prg in prgCtrl.programas" ng-show="prg.dia === prgCtrl.diaNav">
+						<section class="2u 12u(narrower)"></section>
+						<section class="8u 12u(narrower)">
 							<div class="row">
-									<div class="1u 12u(narrower) 12u(mobilep) "></div>
-									<div id="coluna_segunda" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao" >
-										<div class="pic image-wrapper overlay-fade-in" ng-repeat="prg in prgCtrl.programas">
-								      <img data-ng-src="data:image/jpeg;base64,{{prg.logo}}">
-								      <div class="image-overlay-content">
-								        <h2>{{prg.dia_semana}} {{prg.hora_inicial}}H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-									</div>
-									<div class="1u 12u(narrower) 12u(mobilep)"></div>
+								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" >
+									<div class="pic image-wrapper overlay-fade-in">
+							      <img data-ng-src="{{prg.programas[0].logo}}" fall-back-src="./images/programacao-ex.jpg">
+							      <!-- <img data-ng-src="./images/programacao-ex.jpg"> -->
+							      <div class="image-overlay-content">
+											<div class="row description">
+												<h2>{{prg.dia_nome}}&ensp;|&ensp;{{prg.programas[0].hora_inicial}}</h2><br>
+												<h3>{{prg.programas[0].nome}}</h3>
+												<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+												<p>{{prg.programas[0].descricao}}</p>
+											</div>
+							      </div>
+						    	</div>
+								</div>
+								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" >
+									<div class="pic image-wrapper overlay-fade-in">
+										<img data-ng-src="{{prg.programas[1].logo}}">
+							      <div class="image-overlay-content">
+											<div class="row description">
+												<h2>{{prg.dia_nome}}&ensp;|&ensp;{{prg.programas[1].hora_inicial}}</h2>
+												<h3>{{prg.programas[1].nome}}</h3>
+												<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+												<p>{{prg.programas[1].descricao}}</p>
+											</div>
+							      </div>
+						    	</div>
+								</div>
+								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" >
+									<div class="pic image-wrapper overlay-fade-in">
+										<img data-ng-src="{{prg.programas[2].logo}}">
+							      <div class="image-overlay-content">
+											<div class="row description">
+												<h2>{{prg.dia_nome}}&ensp;|&ensp;{{prg.programas[2].hora_inicial}}</h2>
+												<h3>{{prg.programas[2].nome}}</h3>
+												<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+												<p>{{prg.programas[2].descricao}}</p>
+											</div>
+							      </div>
+						    	</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" >
+									<div class="pic image-wrapper overlay-fade-in">
+										<img data-ng-src="{{prg.programas[3].logo}}">
+							      <div class="image-overlay-content">
+											<div class="row description">
+												<h2>{{prg.dia_nome}}&ensp;|&ensp;{{prg.programas[3].hora_inicial}}</h2>
+												<h3>{{prg.programas[3].nome}}</h3>
+												<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+												<p>{{prg.programas[3].descricao}}</p>
+											</div>
+							      </div>
+						    	</div>
+								</div>
+								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" >
+									<div class="pic image-wrapper overlay-fade-in">
+										<img data-ng-src="{{prg.programas[4].logo}}">
+							      <div class="image-overlay-content">
+											<div class="row description">
+												<h2>{{prg.dia_nome}}&ensp;|&ensp;{{prg.programas[4].hora_inicial}}</h2>
+												<h3>{{prg.programas[4].nome}}</h3>
+												<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+												<p>{{prg.programas[4].descricao}}</p>
+											</div>
+							      </div>
+						    	</div>
+								</div>
+								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" >
+									<div class="pic image-wrapper overlay-fade-in">
+							      <img data-ng-src="{{prg.programas[5].logo}}">
+							      <div class="image-overlay-content">
+											<div class="row description">
+												<h2>{{prg.dia_nome}}&ensp;|&ensp;{{prg.programas[5].hora_inicial}}</h2>
+												<h3>{{prg.programas[5].nome}}</h3>
+												<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+												<p>{{prg.programas[5].descricao}}</p>
+											</div>
+							      </div>
+						    	</div>
+								</div>
 							</div>
 						</section>
 					</div>
