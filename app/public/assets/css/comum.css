@@ -336,3 +336,17 @@ div.semana {
   width: 100% !important;
   height: 100% !important;
 }
+
+img#imagem-logo {
+  width: 150px;
+  height: 150px;
+}
+a.imagem-logo{
+  color: #f4f4f4;
+  top: 0.8em;
+  right: 13.5em;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  float: right;
+}

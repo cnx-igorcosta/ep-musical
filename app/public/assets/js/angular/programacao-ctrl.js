@@ -11,6 +11,14 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   prgCtrl.mensagem = '';
   prgCtrl.logo = null;
   prgCtrl.programa = {};
+  prgCtrl.uploaded = false;
+  prgCtrl.programa.dia_semana = 0;
+  prgCtrl.diaNav = 2;//SEGUNDA
+  prgCtrl.isDetalhar = false;
+  prgCtrl.isEdicao = false;
+  prgCtrl.logoRemovido = false;
+
+  //prgCtrl.isExclusao = false;
   prgCtrl.programas = [
     {dia: 2, dia_nome: 'SEGUNDA', programas: []},
     {dia: 3, dia_nome: 'TERÇA', programas: []},
@@ -20,16 +28,15 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     {dia: 7, dia_nome: 'SÁBADO', programas: []},
     {dia: 1, dia_nome: 'DOMINGO', programas: []}
   ];
-  prgCtrl.programa.dia_semana = 0;
   prgCtrl.diasSelect = [
     {"id": 0, "label": "Selecione o dia da semana"},
-    {"id": 2, "label": "Segunda"},
-    {"id": 3, "label": "Terça"},
-    {"id": 4, "label": "Quarta"},
-    {"id": 5, "label": "Quinta"},
-    {"id": 6, "label": "Sexta"},
-    {"id": 7, "label": "Sábado"},
-    {"id": 1, "label": "Domingo"}
+    {"id": 2, "label": "SEGUNDA"},
+    {"id": 3, "label": "TERÇA"},
+    {"id": 4, "label": "QUARTA"},
+    {"id": 5, "label": "QUINTA"},
+    {"id": 6, "label": "SEXTA"},
+    {"id": 7, "label": "SÁBADO"},
+    {"id": 1, "label": "DOMINGO"}
   ];
   prgCtrl.diasSemanaNav = [
     {"id": 2, "label": "SEGUNDA"},
@@ -40,8 +47,6 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     {"id": 7, "label": "SÁBADO"},
     {"id": 1, "label": "DOMINGO"}
   ];
-  prgCtrl.diaNav = 2;//SEGUNDAs
-  prgCtrl.isDetalhar = false;
 
   prgCtrl.iniciar = function(){
     prgCtrl.limpar();
@@ -78,7 +83,9 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
 
   prgCtrl.editar = function(programa){
     prgCtrl.programa = programa;
+    prgCtrl.isEdicao = true;
     prgCtrl.isDetalhar = false;
+    prgCtrl.logoRemovido = false;
   }
 
   prgCtrl.buscar = function(){
@@ -161,12 +168,21 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     prgCtrl.diaNav = idDia;
   }
 
-  prgCtrl.deletar = function(programa){
-    ProgramacaoService.delete({id: programa.id}, function(retorno){
-      prgCtrl.mensagem = 'Excluído com suceso!';
-      var index = prgCtrl.programas.indexOf(programa);
-      prgCtrl.programas.splice(index, 1);
-    }, prgCtrl.tratarErro);
+  // prgCtrl.excluirPrograma = function(idPrograma) {
+  //   prgCtrl.programa.id = idPrograma;
+  //   prgCtrl.isExclusao = true;
+  // }
+
+  prgCtrl.deletar = function(id){
+    prgCtrl.mensagem = '';
+    if (id && confirm("Deseja realmente deletar programação?")) {
+      ProgramacaoService.delete({id: id}, function(retorno){
+        alert('Excluído com sucesso');
+        /*var index = prgCtrl.programas.indexOf(programa);
+        prgCtrl.programas.splice(index, 1);*/
+        prgCtrl.limpar();
+      }, prgCtrl.tratarErro);
+    }
   };
 
   prgCtrl.isValido = function(){
@@ -190,6 +206,9 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     prgCtrl.programa.dia_semana = 0;
     prgCtrl.diaNav = 2
     prgCtrl.isDetalhar = false;
+    prgCtrl.uploaded = false;
+    prgCtrl.logoRemovido = false;
+  //  prgCtrl.isExclusao = false;
     prgCtrl.listar();
   };
 
@@ -203,19 +222,34 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   };
 
   prgCtrl.uploadFile = function(files) {
+    prgCtrl.uploaded = false;
+    prgCtrl.logoRemovido = false;
+    prgCtrl.mensagem = '';
     var f = files[0];
-    console.log(f.size);
-    var r = new FileReader();
-    r.onloadend = function(e) {
-       prgCtrl.logo = e.target.result;
-     }
-     r.readAsDataURL(f); //once defined all callbacks, begin reading the file
+    if(f.size > 1000000){
+      prgCtrl.mensagem = 'Tamanho máximo da imagem = 1Mb';
+      //limparUploadFileLabel();
+    }else {
+      var r = new FileReader();
+      prgCtrl.uploaded = true;
+      r.onloadend = function(e) {
+        prgCtrl.logo = e.target.result;
+      }
+      r.readAsDataURL(f); //once defined all callbacks, begin reading the file
+    }
+    $scope.$apply();
+    console.log(prgCtrl.uploaded);
    };
+
+   prgCtrl.removerImagemEdicao = function(){
+       prgCtrl.logoRemovido = true;
+   }
 
    prgCtrl.preencherVazios();
    prgCtrl.iniciar();
 });
 
- function iniciarPrograma(){
-   angular.element(document.getElementById('programa')).scope().prgCtrl.iniciar();
- }
+
+ // function iniciarPrograma(){
+ //   angular.element(document.getElementById('programa')).scope().prgCtrl.iniciar();
+ // }

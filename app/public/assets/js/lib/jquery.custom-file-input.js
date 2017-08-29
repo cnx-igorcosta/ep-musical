@@ -23,7 +23,7 @@
 				fileName = e.target.value.split( '\\' ).pop();
 
 			if( fileName )
-				$label.find( 'span' ).html( fileName );
+				$label.find( 'span[id="filename"]' ).html( fileName );
 			else
 				$label.html( labelVal );
 		});

@@ -48,6 +48,13 @@
   cursor: pointer;
   float: right;
 }
+.overlay-fade-in i.excluir-programa {
+  top: 1em;
+}
+.overlay-fade-in i.alterar-programa {
+  top: 1em;
+  right: 1.5em;
+}
 .overlay-fade-in img {
   transition: all 0.2s linear;
   width: inherit;

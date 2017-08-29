@@ -110,6 +110,19 @@ router.put('/', (req, res, next) => {
   });
 });
 
+router.delete('/', (req, res, next) => {
+  const id = req.query.id;
+  req.getConnection((err, connection) => {
+    if(err) erro('na conexao com o banco', err, res);
+
+    connection.query('DELETE FROM Programacao WHERE id = ?', id, (err, result) => {
+        if(err) erro('ao deletar Programação', err, res);
+
+        return res.status(200).json(result);
+    });
+  });
+});
+
 function erro(mensagem, err, res){
   console.log(`Erro  ${mensagem}`, err);
   var retornoErro = {
