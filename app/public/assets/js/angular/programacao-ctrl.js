@@ -72,8 +72,9 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
         ProgramacaoService.post(programaSalvar, function(retorno) {
           if(retorno.erro) prgCtrl.mensagem = 'Erro ao salvar programa';
 
-          programaSalvar.id = retorno.id;
-          prgCtrl.programas.push(programaSalvar);
+          /*programaSalvar.id = retorno.id;
+          prgCtrl.programas.push(programaSalvar);*/
+          prgCtrl.limpar();
           prgCtrl.mensagem = 'Salvo com sucesso!';
         }, prgCtrl.tratarErro);
       }
@@ -86,6 +87,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     prgCtrl.isEdicao = true;
     prgCtrl.isDetalhar = false;
     prgCtrl.logoRemovido = false;
+    prgCtrl.logo = programaSalvar.logo;
   }
 
   prgCtrl.buscar = function(){
@@ -138,7 +140,11 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     for(var i = 0; i <listaPrograma.length; i++) {
       var programa = listaPrograma[i];
       if(programa.logo) {
-        programa.logo = programa.logo.replace(/data:?image\/(jpeg|png|jpg);?base64,?/,'data:image/jpeg;base64,');
+        if(programa.logo.indexOf('base64') != -1){
+          programa.logo = programa.logo.replace(/data:?image\/(jpeg|png|jpg);?base64,?/,'data:image/jpeg;base64,');
+        } else{
+          programa.logo = 'data:image/jpeg;base64,'+ programa.logo;
+        }
       } else{
           programa.logo = './images/default-programacao.jpg';
       }
@@ -207,7 +213,9 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     prgCtrl.diaNav = 2
     prgCtrl.isDetalhar = false;
     prgCtrl.uploaded = false;
+    prgCtrl.isEdicao = false;
     prgCtrl.logoRemovido = false;
+    limparUploadFileLabel();
   //  prgCtrl.isExclusao = false;
     prgCtrl.listar();
   };
@@ -238,7 +246,6 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
       r.readAsDataURL(f); //once defined all callbacks, begin reading the file
     }
     $scope.$apply();
-    console.log(prgCtrl.uploaded);
    };
 
    prgCtrl.removerImagemEdicao = function(){
@@ -249,6 +256,9 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
    prgCtrl.iniciar();
 });
 
+function limparUploadFileLabel() {
+  angular.element(document.getElementById('filename'))[0].innerHTML = '';
+}
 
  // function iniciarPrograma(){
  //   angular.element(document.getElementById('programa')).scope().prgCtrl.iniciar();

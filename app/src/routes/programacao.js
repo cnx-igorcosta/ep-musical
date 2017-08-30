@@ -1,6 +1,8 @@
 import express from 'express';
 import fs from 'fs';
+import pngToJpeg from 'png-to-jpeg';
 import nextIdModule from '../util/next-id';
+
 
 const router = express.Router();
 const nextId = nextIdModule('Programacao');
@@ -42,38 +44,50 @@ router.get('/:nome?/:dia_semana?',(req, res, next) => {
   });
 });
 
+function tratarImagem(base64Image, callback) {
+  if(base64Image.indexOf('image/png') != -1){
+    const buffer = new Buffer(base64Image.split(/,\s*/)[1],'base64');
+    console.log(buffer);
+    pngToJpeg({quality: 90})(buffer).
+    then(output => {callback(output)});
+  }else {
+    const buffer = new Buffer(base64Image, 'base64');
+    callback(buffer);
+  }
+}
+
 //POST
 router.post('/', (req, res, next) => {
   const programacao = req.body;
-  console.log('req.body: '+req.body);
-  programacao.imagem = new Buffer(programacao.logo, 'base64');
-  console.log('vai salvar');
-  req.getConnection((err, connection) => {
-    if(err) erro('na conexao com o banco de dados', err, res);
-    nextId.get(connection, (err, id) => {
-      if(err) erro('ao gerar Id', err, res);
+  tratarImagem(programacao.logo, output => {
+    programacao.imagem = output;
+    req.getConnection((err, connection) => {
+      if(err) erro('na conexao com o banco de dados', err, res);
+      nextId.get(connection, (err, id) => {
+        if(err) erro('ao gerar Id', err, res);
 
-      const query =
-      `INSERT INTO
-        Programacao
-          (id, nome, dia_semana, hora_inicial, hora_final, descricao, logo)
-        VALUES
-          (?, ?, ?, ?, ?, ?, ?)`;
+        const query =
+        `INSERT INTO
+          Programacao
+            (id, nome, dia_semana, hora_inicial, hora_final, descricao, logo)
+          VALUES
+            (?, ?, ?, ?, ?, ?, ?)`;
 
-      const params = [
-        id,
-        programacao.nome,
-        programacao.dia_semana,
-        programacao.hora_inicial,
-        programacao.hora_final,
-        programacao.descricao,
-        programacao.imagem,
-      ];
-      connection.query(query, params, (err, result) => {
-          if(err) erro('ao inserir Programação', err, res);
+        const params = [
+          id,
+          programacao.nome,
+          programacao.dia_semana,
+          programacao.hora_inicial,
+          programacao.hora_final,
+          programacao.descricao,
+          programacao.imagem,
+        ];
+        connection.query(query, params, (err, result) => {
+            if(err) erro('ao inserir Programação', err, res);
 
-          return res.status(200).json({id: result.insertId});
-        });
+            return res.status(200).json({id: result.insertId});
+          });
+      });
     });
   });
 });
