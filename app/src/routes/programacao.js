@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import pngToJpeg from 'png-to-jpeg';
+import moment from 'moment';
 import nextIdModule from '../util/next-id';
 
 
@@ -47,7 +48,6 @@ router.get('/:nome?/:dia_semana?',(req, res, next) => {
 function tratarImagem(base64Image, callback) {
   if(base64Image.indexOf('image/png') != -1){
     const buffer = new Buffer(base64Image.split(/,\s*/)[1],'base64');
-    console.log(buffer);
     pngToJpeg({quality: 90})(buffer).
     then(output => {callback(output)});
   }else {
@@ -61,6 +61,7 @@ router.post('/', (req, res, next) => {
   const programacao = req.body;
   tratarImagem(programacao.logo, output => {
     programacao.imagem = output;
+    programacao.descricao = limitarDescricao(programacao.descricao);
     req.getConnection((err, connection) => {
       if(err) erro('na conexao com o banco de dados', err, res);
       nextId.get(connection, (err, id) => {
@@ -91,6 +92,15 @@ router.post('/', (req, res, next) => {
     });
   });
 });
+
+// function formatTime(programaSalvar) {
+//   let hhmm_inicial = programaSalvar.hora_inicial.split(':');
+//   programaSalvar.hora_inicial = moment(`2017-01-01 ${hhmm_inicial[0]}:${hhmm_inicial[1]}:00`).format('YYYY-MM-DD HH:mm:ss');
+//   console.log(programaSalvar.hora_inicial);
+//
+//   let hhmm_final = programaSalvar.hora_final.split(':');
+//   programaSalvar.hora_final =  moment(`2017-01-01 ${hhmm_final[0]}:${hhmm_final[1]}:00`).format('YYYY-MM-DD HH:mm:ss');
+// }
 
 //PUT
 router.put('/', (req, res, next) => {
@@ -167,5 +177,12 @@ function blobToBase64(programas) {
 //   console.log('retorno: ',retorno);
 //   return retorno;
 // }
+
+function limitarDescricao(descricao) {
+  if(descricao && descricao.length > 500) {
+    return descricao.substring(0,499);
+  }
+  return descricao;
+}
 
 module.exports = router;

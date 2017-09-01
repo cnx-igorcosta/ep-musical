@@ -69,14 +69,12 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
           prgCtrl.mensagem = 'Atualizado com sucesso!';
         }, prgCtrl.tratarErro);
       }else{
+        //prgCtrl.formatTime(programaSalvar);
         ProgramacaoService.post(programaSalvar, function(retorno) {
           if(retorno.erro) prgCtrl.mensagem = 'Erro ao salvar programa';
-
-          /*programaSalvar.id = retorno.id;
-          prgCtrl.programas.push(programaSalvar);*/
           prgCtrl.limpar();
           prgCtrl.mensagem = 'Salvo com sucesso!';
-        }, prgCtrl.tratarErro);
+        }, prgCtrl.tratarErro);''
       }
       prgCtrl.programa = {};
     }
@@ -108,12 +106,13 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     prgCtrl.mensagem = '';
     ProgramacaoService.query(function(retorno){
         prgCtrl.base64ToImage(retorno);
-        prgCtrl.programas = prgCtrl.organizarProgramasPorDiaHora(retorno);
+        var listaSemana = prgCtrl.organizarProgramasPorDiaSemana(retorno);
+        prgCtrl.programas = prgCtrl.organizarProgramasPorHora(listaSemana);
         prgCtrl.preencherVazios();
     }, prgCtrl.tratarErro);
   };
 
-  prgCtrl.organizarProgramasPorDiaHora = function(listaPrograma) {
+  prgCtrl.organizarProgramasPorDiaSemana = function(listaPrograma) {
     var listaSemana = [
       {dia: 1, dia_nome: 'DOMINGO', programas: []},
       {dia: 2, dia_nome: 'SEGUNDA', programas: []},
@@ -136,6 +135,24 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     return listaSemana;
   };
 
+  prgCtrl.organizarProgramasPorHora = function(listaSemana) {
+    var retorno = [];
+    for(var i = 0; i < listaSemana.length; i++) {
+      var semana = listaSemana[i];
+      for(var j = 0; j < semana.programas.length; j++) {
+        semana.programas.sort(function(a,b){
+          if(a.hora_inicial && b.hora_inicial){
+            var data_a = new Date('1970-01-01 '+a.hora_inicial);
+            var data_b = new Date('1970-01-01 '+b.hora_inicial);
+            return (data_a - data_b);
+          }
+        });
+      }
+    }
+    return listaSemana;
+  };
+
+
   prgCtrl.base64ToImage = function(listaPrograma) {
     for(var i = 0; i <listaPrograma.length; i++) {
       var programa = listaPrograma[i];
@@ -153,7 +170,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
 
   prgCtrl.preencherVazios = function() {
     var quantMaxPrg = 6;
-    for(var i = 0; i < prgCtrl.programas.length; i++) {
+    for(var i = 0; i < 7; i++) {
       var semana = prgCtrl.programas[i];
       if(semana.programas.length < quantMaxPrg) {
         var faltam =  quantMaxPrg - semana.programas.length;
@@ -251,6 +268,14 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
    prgCtrl.removerImagemEdicao = function(){
        prgCtrl.logoRemovido = true;
    }
+
+  //  prgCtrl.formatTime = function(programaSalvar) {
+  //    let hhmm_inicial = programaSalvar.hora_inicial.split(':');
+  //    programaSalvar.hora_inicial = new Date('1970','01','01',hhmm_inicial[0], hhmm_inicial[1]);
+   //
+  //    let hhmm_final = programaSalvar.hora_final.split(':');
+  //    programaSalvar.hora_final = new Date('1970','01','01',hhmm_final[0], hhmm_final[1]);
+  //  }
 
    prgCtrl.preencherVazios();
    prgCtrl.iniciar();
