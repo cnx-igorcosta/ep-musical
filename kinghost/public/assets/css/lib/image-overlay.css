@@ -15,26 +15,83 @@
   top: 0;
   left: 0; }
 
+.overlay-fade-in p:before {
+  background-color: #f4f4f4;
+  width: 150%;
+  height: 1px;
+  content: '';
+  display: block;
+  position: relative;
+  top: -1em;
+  left: -2em;
+}
 .overlay-fade-in p {
-  letter-spacing: 0.15em;
+  /*letter-spacing: 0.15em;*/
   color: #f4f4f4;
-  font-size: 28px;
+  font-size: xx-small;
   opacity: 1;
+  line-height: 1.2em;
+  padding-top: 0;
+  padding-left: 5.5em;
+  padding-right: 1em;
+  top: -2.5em;
+  position: relative;
+  width: 100%;
   /*transition: all 0.2s linear; */
 }
+.overlay-fade-in i {
+  color: #f4f4f4;
+  top: -2.7em;
+  right: 1em;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  float: right;
+}
+.overlay-fade-in i.excluir-programa {
+  top: 1em;
+}
+.overlay-fade-in i.alterar-programa {
+  top: 1em;
+  right: 1.5em;
+}
 .overlay-fade-in img {
-  transition: all 0.2s linear; }
+  transition: all 0.2s linear;
+  width: inherit;
+  height: inherit;
+}
 .overlay-fade-in .image-overlay-content {
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.2);
   transition: all 0.4s ease-in-out; }
-.overlay-fade-in h2 {
+
+.description:hover {
+  margin-top: 15%;
+}
+
+.description {
+  margin-top: 72%;
+  transition: all 0.3s ease-in-out;
+  background: rgba(0, 0, 0, 0.7);
+  height: 100%;
+}
+.description h2{
   color: #f2f2f2;
-  font-size: 1.8rem;
-  margin-top: 40%;
-  opacity: 0;
-  transition: all 0.2s ease-in-out;
-  background: rgba(0, 0, 0, 0.7); }
+  font-size: 0.8rem;
+  padding-top: 1em;
+  padding-left: 4em;
+  margin-bottom: 0px;
+  width: 100%;
+}
+.description h3{
+  color: #f2f2f2;
+  font-size: 0.8rem;
+  padding-top: 0px;
+  padding-left: 4em;
+  font-weight: lighter;
+}
+
+
 .overlay-fade-in .button {
   display: inline-block;
   /*text-decoration: none;*/
@@ -50,7 +107,7 @@
   .overlay-fade-in .button:hover {
     box-shadow: 0 0 5px #000; }
 .overlay-fade-in:hover img {
-  transform: scale(1.2); }
+  /*transform: scale(1.2); }*/
 .overlay-fade-in:hover .image-overlay-content {
   opacity: 1; }
 .overlay-fade-in:hover h2, .overlay-fade-in p, .overlay-fade-in .button {

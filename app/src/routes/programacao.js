@@ -59,77 +59,70 @@ function tratarImagem(base64Image, callback) {
 //POST
 router.post('/', (req, res, next) => {
   const programacao = req.body;
+  try{
+    tratarImagem(programacao.logo, output => {
+      programacao.imagem = output;
+      programacao.descricao = limitarDescricao(programacao.descricao);
+      req.getConnection((err, connection) => {
+        if(err) erro('na conexao com o banco de dados', err, res);
+        nextId.get(connection, (err, id) => {
+          if(err) erro('ao gerar Id', err, res);
+
+          const query =
+          `INSERT INTO Programacao
+            (id, nome, dia_semana, hora_inicial, hora_final, descricao, logo)
+          VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+          const params = [
+            id,
+            programacao.nome,
+            programacao.dia_semana,
+            programacao.hora_inicial,
+            programacao.hora_final,
+            programacao.descricao,
+            programacao.imagem,
+          ];
+          connection.query(query, params, (err, result) => {
+            if(err) erro('ao inserir Programação', err, res);
+
+            return res.status(200).json({id: result.insertId});
+          });
+        });
+      });
+    });
+  } catch(err) {
+    erro('ao inserir Programação', err, res);
+  }
+});
+
+//PUT
+router.put('/', (req, res, next) => {
+  const programacao = req.body;
+  console.log(programacao);
   tratarImagem(programacao.logo, output => {
     programacao.imagem = output;
     programacao.descricao = limitarDescricao(programacao.descricao);
     req.getConnection((err, connection) => {
       if(err) erro('na conexao com o banco de dados', err, res);
-      nextId.get(connection, (err, id) => {
-        if(err) erro('ao gerar Id', err, res);
 
-        const query =
-        `INSERT INTO
-          Programacao
-            (id, nome, dia_semana, hora_inicial, hora_final, descricao, logo)
-          VALUES
-            (?, ?, ?, ?, ?, ?, ?)`;
+      const query =
+      `UPDATE Programacao
+       SET nome = ?, dia_semana = ?, hora_inicial = ?, hora_final =?, descricao = ?, logo = ?
+       WHERE id = ?`;
 
-        const params = [
-          id,
-          programacao.nome,
-          programacao.dia_semana,
-          programacao.hora_inicial,
-          programacao.hora_final,
-          programacao.descricao,
-          programacao.imagem,
-        ];
-        connection.query(query, params, (err, result) => {
-            if(err) erro('ao inserir Programação', err, res);
-
-            return res.status(200).json({id: result.insertId});
-          });
+      const params = [
+        programacao.nome,
+        programacao.dia_semana,
+        programacao.hora_inicial,
+        programacao.hora_final,
+        programacao.descricao,
+        programacao.imagem,
+        programacao.id
+      ];
+      connection.query(query, params, (err, result) => {
+          if(err) erro('ao atualizar programacao', err, res);
+          return res.status(200).json(result);
       });
-    });
-  });
-});
-
-// function formatTime(programaSalvar) {
-//   let hhmm_inicial = programaSalvar.hora_inicial.split(':');
-//   programaSalvar.hora_inicial = moment(`2017-01-01 ${hhmm_inicial[0]}:${hhmm_inicial[1]}:00`).format('YYYY-MM-DD HH:mm:ss');
-//   console.log(programaSalvar.hora_inicial);
-//
-//   let hhmm_final = programaSalvar.hora_final.split(':');
-//   programaSalvar.hora_final =  moment(`2017-01-01 ${hhmm_final[0]}:${hhmm_final[1]}:00`).format('YYYY-MM-DD HH:mm:ss');
-// }
-
-//PUT
-router.put('/', (req, res, next) => {
-  const programacao = req.body;
-
-  req.getConnection((err, connection) => {
-    if(err) erro('na conexao com o banco de dados', err, res);
-
-    const query =
-    `UPDATE
-      Programacao
-    SET
-      nome = ?, dia_semana = ?, hora = ?, descricao = ?, logo = ?
-    WHERE
-      id = ?`;
-
-    const params = [
-      programacao.nome,
-      programacao.dia_semana,
-      programacao.hora,
-      programacao.descricao,
-      programacao.logo,
-      programacao.id
-    ];
-
-    connection.query(query, params, (err, result) => {
-        if(err) erro('ao atualizar programacao', err, res);
-
-        return res.status(200).json(result);
     });
   });
 });

@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./dist/app.js",
     "start:dev": "node_modules/.bin/nodemon ./app/app.js --exec babel-node",
-    "start:prd": "npm run build && npm start",
+    "start:prd": "NODE_ENV=prd npm run build && npm start",
     "build": "rimraf dist [\"ENOTEMPTY\"] && babel app -d dist --ignore app/public && npm run copy-files",
     "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\"",
     "create-source:kinghost": "rimraf kinghost [\"ENOTEMPTY\"]",
@@ -16,8 +16,8 @@
     "install-dependencies:kinghost": "cd ../apps_nodejs && npm install"
   },
   "dependencies": {
-    "babel-core": "^6.25.0",
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "~1.17.1",
@@ -28,8 +28,10 @@
     "express": "~4.15.2",
     "express-myconnection": "^1.0.4",
     "jade": "~1.11.0",
+    "moment": "^2.18.1",
     "morgan": "~1.8.1",
     "mysql": "^2.13.0",
+    "png-to-jpeg": "^1.0.1",
     "rimraf": "^2.6.1",
     "serve-favicon": "~2.4.2"
   },

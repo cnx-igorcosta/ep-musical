@@ -51,7 +51,7 @@ var app = (0, _express2.default)();
 
 app.set('view engine', 'ejs');
 app.use((0, _morgan2.default)('dev'));
-app.use(_bodyParser2.default.json());
+app.use(_bodyParser2.default.json({ limit: 1024102420, type: 'application/json' }));
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use((0, _cookieParser2.default)());
 app.use(_express2.default.static(_path2.default.join(__dirname, 'public')));
@@ -99,7 +99,7 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-var port = normalizePort(process.env.PORT_APP || '3001');
+var port = normalizePort(process.env.PORT_APP || process.env.PORT || '3001');
 var server = _http2.default.createServer(app);
 server.listen(port);
 server.on('error', onError);

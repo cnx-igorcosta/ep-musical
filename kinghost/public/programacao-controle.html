@@ -4,7 +4,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html ng-app="epmusicalApp">
 	<head>
 		<title>EP Musical</title>
 		<meta charset="utf-8" />
@@ -44,187 +44,99 @@
 							<!-- <h3>TUDO QUE ROLA AO VIVO PRA VOCÊ!</h3> -->
 						</section>
 					</div>
-					<div class="container">
+					<div class="container" ng-controller="programacaoCtrl as prgCtrl">
 					<div class="row">
 						<section class="2u 12u(narrower)"></section>
 						<section class="8u 12u(narrower)">
+							<h3 ng-show="prgCtrl.mensagem">{{prgCtrl.mensagem}}</h2>
 							<form>
 								<div class="row 50%">
 									<div class="6u 12u(mobilep)">
-										<input type="text" name="titulo" id="titulo" placeholder="Nome" />
+										<input type="text" id="titulo" placeholder="Nome" ng-model="prgCtrl.programa.nome"/>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<select name="dia_semana" id="dia_semana">
-											<option value="">Selecione o dia da semana</option>
-											<option value="1">Domingo</option>
-											<option value="2">Segunda</option>
-											<option value="3">Terça</option>
-											<option value="4">Quarta</option>
-											<option value="5">Quinta</option>
-											<option value="6">Sexta</option>
-											<option value="7">Sábado</option>
+										<select name="dia_semana" id="dia_semana"
+														ng-model="prgCtrl.programa.dia_semana">
+											<option ng-selected="prgCtrl.programa.dia_semana == dia.id"
+											        ng-repeat="dia in prgCtrl.diasSelect"
+											        ng-value="dia.id">{{dia.label}}</option>
 										</select>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<input type="text" name="hora_inicio" id="hora_inicio" placeholder="Hora de início" />
+										<input type="text" id="hora_inicio" placeholder="Hora inicial" ng-model="prgCtrl.programa.hora_inicial"  mask='29:59'/>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<input type="text" name="hora_fim" id="hora_fim" placeholder="Hora de fim" />
+										<input type="text" name="hora_fim" id="hora_fim" placeholder="Hora de fim" ng-model="prgCtrl.programa.hora_final" mask='29:59'/>
 									</div>
 								</div>
 								<div class="row 50%">
 									<div class="6u 12u(mobilep)">
-										<textarea name="descricao" id="descricao" placeholder="Descrição" rows="3"></textarea>
+										<textarea name="descricao" id="descricao" placeholder="Descrição" rows="3" ng-model="prgCtrl.programa.descricao"></textarea>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<input type="file" name="file-7[]" id="file-7" class="inputfile inputfile-6" />
-										<!-- <label for="file-7"><span></span> <strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> Choose a file&hellip;</strong></label> -->
+										<input type="file" name="file-7[]" id="file-7" class="inputfile inputfile-6" onchange="angular.element(this).scope().prgCtrl.uploadFile(this.files);"/>
+										<label for="file-7" ng-show="!prgCtrl.isEdicao || prgCtrl.logoRemovido"><span id="filename" ng-show="prgCtrl.uploaded"></span><span ng-hide="prgCtrl.uploaded"></span> <strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg>Escolher imagem&hellip;</strong></label>
+
+										<div class="imagem-logo" ng-show="prgCtrl.isEdicao && !prgCtrl.logoRemovido && !prgCtrl.uploaded">
+											<img id="imagem-logo" data-ng-src="{{prgCtrl.programa.logo}}" fall-back-src="./images/programacao-ex.jpg" >
+												<a href="" class="fa fa-trash imagem-logo" ng-click="prgCtrl.removerImagemEdicao()"></a>
+											</img>
+										</div>
+
 									</div>
 								</div>
 								<div class="row 50%">
 									<div class="12u">
 										<ul class="actions">
-											<li><input type="submit" class="button alt" value="Salvar" /></li>
-											<li><a class="button alt" >Limpar</a></li>
+											<li><a href="" class="button alt" ng-click="prgCtrl.salvar()">Salvar</a></li>
+											<li><a class="button alt" ng-click="prgCtrl.limpar()">Limpar</a></li>
 										</ul>
 									</div>
 								</div>
 							</form>
 						</section>
 						<section class="2u 12u(narrower)"></section>
-						<section class="12u 12u(narrower)">
+					</div>
+
+					<div class="row semana">
+						<section class="2u 12u(narrower)">
+						</section>
+						<section id="programacao" class="10u 12u$(narrower) 12u$(mobilep)">
+							<h2>GRADE DE PROGRAMAÇÃO</h2>
+							<nav>
+								<ul>
+									<li ng-repeat="dia in prgCtrl.diasSemanaNav"
+											ng-class="{'current': dia.id === prgCtrl.diaNav}"
+											ng-click="prgCtrl.mostrarDia(dia.id)">{{dia.label}}</li>
+								</ul>
+							</nav>
+						</section>
+					</div>
+
+					<div class="row" ng-repeat="dia_semana in prgCtrl.programas" ng-show="dia_semana.dia === prgCtrl.diaNav">
+						<section class="2u 12u(narrower)"></section>
+						<section class="8u 12u(narrower)">
 							<div class="row">
-									<div class="1u 12u(narrower) 12u(mobilep) "></div>
-									<div id="coluna_segunda" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Segunda 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Segunda 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
+								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" ng-repeat="prg in dia_semana.programas track by $index">
+									<div class="pic image-wrapper overlay-fade-in">
+							      <img ng-src="{{prg.logo}}" fall-back-src="./images/programacao-ex.jpg">
+							      <!-- <img data-ng-src="./images/programacao-ex.jpg"> -->
+							      <div class="image-overlay-content">
+											<i class="fa fa-trash excluir-programa" aria-hidden="true" title="Excluir" ng-click="prgCtrl.deletar(prg.id);" ng-show="prg.id"></i>
+											<a href="#programacao" ng-click="prgCtrl.editar(prg);" ng-show="prg.id"><i class="fa fa-pencil alterar-programa" aria-hidden="true" title="Alterar"></i></a>
+											<div class="row description">
+												<h2>{{dia_semana.dia_nome}}&ensp;|&ensp;{{prg.hora_inicial}}</h2><br>
+												<h3>{{prg.nome}}</h3>
+												<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+												<p>{{prg.descricao}}</p>
 											</div>
-										</div>
-									</div>
-									<div id="coluna_terca" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Terça 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Terça 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_quarta" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Quarta 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in" >
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Quarta 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Quarta 21H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_quinta" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Quinta 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Quinta 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_sexta" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Sexta 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-									</div>
-									<div id="coluna_sabado" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Sábado 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Sábado 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Sábado 21H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Sábado 23H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div id="coluna_domingo" class="1.4u 12u(narrower) 12u(mobilep) coluna-programacao">
-										<div class="pic image-wrapper overlay-fade-in">
-								      <img src="./images/programacao-ex.jpg">
-								      <div class="image-overlay-content">
-								        <h2>Domingo 19H</h2>
-								        <a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-								      </div>
-							    	</div>
-										<div class="pic image-wrapper overlay-fade-in">
-											<img src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<h2>Domingo 20H</h2>
-												<a href="#album-prewedding" class="scrolly button small" onclick="openPrewedding(event);">Visualizar</a>
-											</div>
-										</div>
-									</div>
-									<div class="1u 12u(narrower) 12u(mobilep)"></div>
+							      </div>
+						    	</div>
+								</div>
 							</div>
 						</section>
 					</div>
+				</div>
 				</section>
 
 			<!-- Footer -->
@@ -271,8 +183,15 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
-
+			<!-- ANGULAR -->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
+			<script src="assets/js/angular/epmusical-app.js"></script>
+			<script src="assets/js/angular/programacao-ctrl.js"></script>
+			<!-- EXTERNAL LIBS -->
 			<script src="assets/js/lib/jquery.custom-file-input.js"></script>
+			<script src="assets/js/lib/ngMask.min.js"></script>
+			<script src="assets/js/lib/angular-base64.js"></script>
 
 	</body>
 </html>
