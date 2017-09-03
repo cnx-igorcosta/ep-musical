@@ -4,7 +4,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html ng-app="epmusicalApp">
 	<head>
 		<title>EP Musical</title>
 		<meta charset="utf-8" />
@@ -16,6 +16,9 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+		<link rel="stylesheet" href="assets/css/lib/image-overlay.css" />
+
+
 	</script>
 	</head>
 	<body>
@@ -33,18 +36,18 @@
 				</div>
 
 			<!-- Highlights -->
-				<section class="wrapper style1">
+				<section class="wrapper style1" ng-controller="programacaoCtrl as prgCtrl">
 					<div class="row">
-						<section class="2u 6u(narrower) 12u$(mobilep)">
-						</section>
-						<section id="programacao" class="10u 12u$(narrower) 12u$(mobilep)">
+						<section class="3u 12u(narrower) 12u$(mobilep)"></section>
+						<section id="programacao" class="6u 12u$(narrower) 12u$(mobilep)">
 							<h2>TRANSMISSÃO AO VIVO!</h2>
 							<h3>TUDO QUE ROLA AO VIVO PRA VOCÊ!</h3>
 						</section>
+						<section class="3u 12u(narrower) 12u$(mobilep)"></section>
 					</div>
 					<div class="row">
-						<section class="2u 12u"></section>
-						<section class="8u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;">
+						<section class="3u 12u"></section>
+						<section class="6u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;">
 							<link href="http://vjs.zencdn.net/6.0.0/video-js.css" rel="stylesheet">
 							<style>.video-js .vjs-time-control{display: none;}.video-js .vjs-progress-control{display: none;}</style>
 							<video id="player_webtv" class="video-js vjs-big-play-centered vjs-fluid" autoplay  controls preload="auto" width="100%" height="100%" data-setup="{ 'fluid':true,'aspectRatio':'16:9' }" >
@@ -62,17 +65,86 @@
 								<script src="//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.8.2/videojs-contrib-hls.min.js"></script>
 								<script>var myPlayer=videojs('player_webtv',{},function(){var player=this;player.on("pause",function(){player.one("play",function(){player.load();player.play();});});})</script>-->
 						</section>
-						<section class="2u 12u"></section>
+						<section class="3u 12u"></section>
 					</div>
 					<div class="row">
-						<section class="2u 12u"></section>
+						<section class="3u 12u"></section>
 						<!-- <section class="8u 12u(narrower) 12u$(mobilep)" style="height:250px"> -->
 							<!-- <script id="cid0020000162801589549" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 100%;height: 100%;">{"handle":"teste-epmusical","arch":"js","styles":{"a":"ef7029","b":100,"c":"FFFFFF","d":"FFFFFF","k":"ef7029","l":"ef7029","m":"ef7029","n":"FFFFFF","p":"10","q":"ef7029","r":100,"ab":false,"usricon":0,"surl":0,"showx":0,"useonm":1}}</script> -->
 							<!-- Begin chatwing.com chatbox -->
-							<iframe src="https://chatwing.com/chatbox/c4abf450-7c9e-11e7-b391-c1c8921d4a93" class="8u 12u(narrower) 12u$(mobilep)" style="height:300px; padding-top: 1em;" frameborder="0" scrolling="0">Please contact us at info@chatwing.com if you cant embed the chatbox</iframe>
+							<iframe src="https://chatwing.com/chatbox/c4abf450-7c9e-11e7-b391-c1c8921d4a93" class="6u 12u(narrower) 12u$(mobilep)" style="height:300px; padding-top: 1em;" frameborder="0" scrolling="0">Please contact us at info@chatwing.com if you cant embed the chatbox</iframe>
 							<!-- End chatwing.com chatbox -->
 						<!-- </section> -->
-						<section class="2u 12u"></section>
+						<section class="3u 12u"></section>
+					</div>
+
+					<div class="row semana" ng-hide="prgCtrl.isDetalhar">
+						<section class="3u 12u(narrower)">
+						</section>
+						<section id="programacao" class="6u 12u$(narrower) 12u$(mobilep)">
+							<h2 id="titulo-grade">GRADE DE PROGRAMAÇÃO</h2>
+							<nav id="semana">
+								<ul>
+									<li ng-repeat="dia in prgCtrl.diasSemanaNav"
+											ng-class="{'current': dia.id === prgCtrl.diaNav}"
+											ng-click="prgCtrl.mostrarDia(dia.id)">{{dia.label}}</li>
+								</ul>
+							</nav>
+						</section>
+						<section class="3u 12u(narrower)">
+					</div>
+
+					<div ng-hide="prgCtrl.isDetalhar">
+						<div id="grade-programacao" class="row" ng-repeat="dia_semana in prgCtrl.programas" ng-show="dia_semana.dia === prgCtrl.diaNav">
+							<section class="3u 12u(narrower)"></section>
+							<section class="6u 12u(narrower)" style="padding-top:0;">
+								<div class="row">
+									<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" ng-repeat="prg in dia_semana.programas track by $index">
+										<div class="pic image-wrapper overlay-fade-in">
+											<img ng-src="{{prg.logo}}" fall-back-src="./images/programacao-ex.jpg">
+											<!-- <img data-ng-src="./images/programacao-ex.jpg"> -->
+											<div class="image-overlay-content">
+												<div class="row description">
+													<h2>{{dia_semana.dia_nome}}&ensp;|&ensp;{{prg.hora_inicial}}</h2><br>
+													<h3>{{prg.nome}}</h3>
+													<i ng-click="prgCtrl.detalhar(prg);" class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+													<p>{{prg.descricao}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+							<section class="3u 12u(narrower)"></section>
+						</div>
+					</div>
+
+
+					<div class="row" ng-show="prgCtrl.isDetalhar">
+						<section class="3u 12u(narrower)"></section>
+						<section class="6u 12u(narrower)">
+							<form>
+								<div id="detalhamento" class="row">
+									<div class="12u 12u(mobilep)"><img style="max-width: 100%;" data-ng-src="{{prgCtrl.programa.logo}}"></div>
+									<div class="3u 12u(mobilep)"><b>Programação:</b></div>
+									<div class="8u 12u(mobilep)">{{prgCtrl.programa.nome}}</div>
+									<div class="3u 12u(mobilep)"><b>Dia: </b></div>
+									<div class="8u 12u(mobilep)">{{prgCtrl.programa.label_semana}}</div>
+									<div class="3u 12u(mobilep)"><b>Horário: </b></div>
+									<div class="8u 12u(mobilep)">{{prgCtrl.programa.hora_inicial}} às {{prgCtrl.programa.hora_final}}</div>
+									<div class="3u 12u(mobilep)"><b>Descrição: </b></div>
+									<div class="8u 12u(mobilep)">{{prgCtrl.programa.descricao}}</div>
+								</div>
+								<div class="row">
+									<div class="12u">
+										<ul class="actions">
+											<li><a class="button alt" ng-click="prgCtrl.limpar()" href="#semana">Voltar</a></li>
+										</ul>
+									</div>
+								</div>
+							</form>
+						</section>
+						<section class="3u 12u(narrower)"></section>
 					</div>
 				</section>
 
@@ -80,15 +152,14 @@
 				<div id="footer">
 					<div class="container">
 						<div class="row">
-							<section class="2u 12u(narrower)"></section>
+							<section class="3u 12u(narrower)"></section>
 							<section class="1u 12u(narrower) 12u$(mobilep)" style="text-align: center;">
 								<img src="./images/logo-branco.png" alt="" style="width: 3em;">
 							</section>
-							<section class="1u 12u(narrower)"></section>
-							<section class="4u 12u(narrower)">
+							<section class="5u 12u(narrower)">
 								<p class="footer">Somos um canal de divulgação de artistas musicais e nosso programa promove encontros, Entrevistas e apresentações em todas as ramificações da música.</p>
 							</section>
-							<section class="4u 12u(narrower)"></section>
+							<section class="3u 12u(narrower)"></section>
 
 						</div>
 					</div>
@@ -120,7 +191,13 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<!-- ANGULAR -->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
+			<script src="assets/js/angular/epmusical-app.js"></script>
+			<script src="assets/js/angular/grade-ctrl.js"></script>
 
-
+			<script src="assets/js/lib/angular-base64.js"></script>
+			<script src="assets/js/lib/ngMask.min.js"></script>
 	</body>
 </html>

@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./dist/app.js",
     "start:dev": "node_modules/.bin/nodemon ./app/app.js --exec babel-node",
-    "start:prd": "NODE_ENV=prd npm run build && npm start",
+    "start:prd": "npm run build && npm start",
     "build": "rimraf dist [\"ENOTEMPTY\"] && babel app -d dist --ignore app/public && npm run copy-files",
     "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\"",
     "create-source:kinghost": "rimraf kinghost [\"ENOTEMPTY\"]",

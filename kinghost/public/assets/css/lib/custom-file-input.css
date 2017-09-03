@@ -211,7 +211,7 @@
 }
 
 .inputfile-6 + label span {
-    width: 200px;
+    width: 9em;
     min-height: 2em;
     display: inline-block;
     text-overflow: ellipsis;

@@ -17,13 +17,13 @@
 }
 
 #nav:before {
-  width: 7em;
-  height: 7em;
+  width: 5.5em;
+  height: 5em;
   content: '';
   display: block;
   position: absolute;
   /*bottom: -0.5em;*/
-  left: 15%;
+  left: 25%;
   background-image: url('../../images/logo.png');
   background-repeat: no-repeat;
   z-index: 9999
@@ -314,8 +314,8 @@ select {
 }
 
 .coluna-programacao {
-  width: 250px !important;
-  height: 250px !important;
+  width: 12.4em !important;
+  height: 12.4em !important;
 }
 div.semana {
   padding-top: 5em;
@@ -330,6 +330,21 @@ div.semana {
 }
 .semana li.current {
   font-weight: bold;
+}
+
+@media screen and (max-width: 535px){
+  .semana li{
+    font-size: x-small;
+    padding-top: 0.5em;
+  }
+}
+@media screen and (max-width: 400px){
+  .semana li{
+    font-size: inherit;
+    display: inherit;
+    text-align: -webkit-center;
+    padding-top: 0.5em;
+  }
 }
 
 .pic {
@@ -349,4 +364,26 @@ a.imagem-logo{
   position: relative;
   cursor: pointer;
   float: right;
+}
+
+#titulo-grade:after{
+    background-color: #c2192c;
+    width: 5%;
+    height: 0.12em;
+    content: '';
+    display: block;
+    position: relative;
+    top: 100%;
+    margin-bottom: 0.2em;
+}
+
+div#grade-programacao {
+  padding-bottom: 2em;
+}
+
+#detalhamento{
+    padding-top: 2em;
+}
+#detalhamento div{
+    padding-top: 0;
 }
