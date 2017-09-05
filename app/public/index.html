@@ -104,12 +104,11 @@
 											<img ng-src="{{prg.logo}}" fall-back-src="./images/programacao-ex.jpg">
 											<!-- <img data-ng-src="./images/programacao-ex.jpg"> -->
 											<div class="image-overlay-content">
-												<div class="row description">
-													<h2>{{dia_semana.dia_nome}}&ensp;|&ensp;{{prg.hora_inicial}}</h2><br>
-													<h3>{{prg.nome}}</h3>
-													<i ng-click="prgCtrl.detalhar(prg);" class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-													<p>{{prg.descricao}}</p>
-												</div>
+												<div class="description">
+													<h2 class="10u 12u(narrower)">{{dia_semana.dia_nome}}&ensp;|&ensp;{{prg.hora_inicial}}</h2>
+													<i ng-click="prgCtrl.detalhar(prg);" class="fa fa-chevron-circle-right 2u 12u(narrower)" aria-hidden="true"></i>
+													<h3 class="10u 12u(narrower)">{{prg.nome}}</h3><br>
+													<p class="12u 12u(narrower)">{{prg.descricao}}</p>
 											</div>
 										</div>
 									</div>

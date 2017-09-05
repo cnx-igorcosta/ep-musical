@@ -49,7 +49,6 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   prgCtrl.listar = function(){
     prgCtrl.programas = [];
     ProgramacaoService.query({},function(retorno){
-        console.log(retorno);
         prgCtrl.base64ToImage(retorno);
         var listaSemana = prgCtrl.organizarProgramasPorDiaSemana(retorno);
         prgCtrl.programas = prgCtrl.organizarProgramasPorHora(listaSemana);
