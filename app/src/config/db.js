@@ -7,7 +7,7 @@ const prd = {env:'prd', host: 'mysql.epmusicaltv.com.br',  user: 'epmusicaltv', 
 function getConfig() {
   const env = process.env.NODE_ENV;
   console.log(env);
-  return (prd.env === env ? prd : dsv);
+  return (dsv.env === env ? dsv : prd);
 }
 
 const dbConfig = getConfig();
@@ -20,5 +20,3 @@ const dbConnection =  connection(mysql,{
 },'request');
 
 module.exports = dbConnection;
-
-//Epmusical123

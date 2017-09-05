@@ -119,7 +119,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
       if(semana.programas.length < quantMaxPrg) {
         var faltam =  quantMaxPrg - semana.programas.length;
         var progrmamaADefinir = {
-          nome: '',
+          nome: 'EP Musical',
           hora_inicial: 'EM BREVE',
           descricao:'Em breve mais uma programação musical para você acompanhar!',
           logo: './images/default-programacao.jpg'

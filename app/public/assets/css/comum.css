@@ -171,14 +171,16 @@ a#criar{
 }
 
 #programacao h2 {
-  font-family: Montserrat Light;
+  font-family: Montserrat;
   color: #c2192c;
   margin-bottom: 0.025em;
+  font-weight: 300;
 }
 #programacao h3 {
-  font-family: Montserrat Light;
+  font-family: Montserrat;
   color: #636363;
   font-size: 0.6em;
+  font-weight: 300;
 }
 
 .rogramacao div h3{
@@ -192,15 +194,17 @@ a#criar{
 }
 
 .lista-programacao div p{
-  font-family: Montserrat Light;
+  font-family: Montserrat;
   color: #636363;
   font-size: 0.6em;
+  font-weight: 300;
 }
 
 .btn-programacao-completa {
   border-radius: 0px !important;
-  font-family: Montserrat Light;
+  font-family: Montserrat;
   background-color: #636363 !important;
+  font-weight: 300;
 }
 
 .btn-vejamais {
@@ -216,10 +220,11 @@ a#criar{
   padding: 2em 0 3em 0;
 }
 .wrapper.news h3 {
-  font-family: Montserrat Light;
+  font-family: Montserrat;
   color: #636363;
   font-size: 0.8em;
   margin-bottom: 0;
+  font-weight: 300;
 }
 .wrapper.news h2 {
   font-family: Montserrat;
@@ -242,12 +247,13 @@ a#criar{
 
 .btn-abrir-conta {
   border-radius: 0px !important;
-  font-family: 'Montserrat Light';
+  font-family: Montserrat;
   color: #f1f1f1 !important;
   border: solid 3px #f1f1f1 !important;
   border-radius: 4px !important;
   background-color: transparent !important;
   padding-top: 6em;
+  font-weight: 300;
 }
 
 .anuncio-grande {
@@ -385,6 +391,9 @@ div#grade-programacao {
 }
 #detalhamento div{
     padding-top: 0;
+    font-size: 0.6em;
+    font-weight: 400;
+    line-height: 2em;
 }
 .conteudo-overlay {
   margin-left: 0px;
@@ -485,6 +494,9 @@ div#grade-programacao {
   .description {
     height: 17.8em !important;
   }
+  .overlay-fade-in i {
+    font-size: larger;
+  }
 }
 
 @media screen and (max-width: 1224px){
@@ -543,102 +555,76 @@ div#grade-programacao {
     height: 15em !important;
   }
 }
-/*@media screen and (max-width: 1030px){
+@media screen and (max-width: 980px){
   .coluna-programacao {
-    height: 14.8em !important;
+    height: 15.7em !important;
   }
   .description {
-    height: 14.8em !important;
-  }
-}*/
-
-/*@media screen and (max-width: 1870px){
-  .coluna-programacao {
-    width: 14.5em !important;
-    height: 14.5em !important;
+    height: 15.7em !important;
   }
 }
-@media screen and (max-width: 1806px){
+@media screen and (max-width: 940px){
   .coluna-programacao {
-    width: 14em !important;
-    height: 14em !important;
+    height: 15.3em !important;
+  }
+  .description {
+    height: 15.3em !important;
   }
 }
-@media screen and (max-width: 1742px){
+@media screen and (max-width: 910px){
   .coluna-programacao {
-    width: 14em !important;
-    height: 14em !important;
+    height: 15em !important;
   }
-}
-@media screen and (max-width: 1742px){
-  .coluna-programacao {
-    width: 13.5em !important;
-    height: 13.5em !important;
-  }
-}
-@media screen and (max-width: 1680px){
-  .coluna-programacao {
-    width: 15em !important;
+  .description {
     height: 15em !important;
   }
 }
-@media screen and (max-width: 1640px){
+@media screen and (max-width: 880px){
   .coluna-programacao {
-    width: 14.5em !important;
+    height: 14.7em !important;
+  }
+  .description {
+    height: 14.7em !important;
+  }
+}
+@media screen and (max-width: 860px){
+  .coluna-programacao {
+    height: 14.5em !important;
+  }
+  .description {
     height: 14.5em !important;
   }
 }
-@media screen and (max-width: 1584px){
+@media screen and (max-width: 840px){
   .coluna-programacao {
-    width: 14em !important;
-    height: 14em !important;
+    height: 16.5em !important;
+  }
+  .description {
+    height: 16.5em !important;
+  }
+  .coluna-programacao {
+    width: 33.33% !important;
   }
 }
-@media screen and (max-width: 1528px){
+@media screen and (max-width: 480px){
   .coluna-programacao {
-    width: 13.5em !important;
-    height: 13.5em !important;
+    height: 16.5em !important;
+  }
+  .description {
+    height: 16.5em !important;
+  }
+  .coluna-programacao {
+    width: 50% !important;
   }
 }
-@media screen and (max-width: 1472px){
+@media screen and (max-width: 400px){
   .coluna-programacao {
-    width: 13em !important;
-    height: 13em !important;
+    height: 24em !important;
+  }
+  .description {
+    height: 24em !important;
+  }
+  .coluna-programacao {
+    width: 100% !important;
   }
 }
-@media screen and (max-width: 1416px){
-  .coluna-programacao {
-    width: 12.5em !important;
-    height: 12.5em !important;
-  }
-}
-@media screen and (max-width: 1360px){
-  .coluna-programacao {
-    width: 12em !important;
-    height: 12em !important;
-  }
-}
-@media screen and (max-width: 1304px){
-  .coluna-programacao {
-    width: 11.5em !important;
-    height: 11.5em !important;
-  }
-}
-@media screen and (max-width: 1280px){
-  .coluna-programacao {
-    width: 12.3em !important;
-    height: 12.3em !important;
-  }
-}
-@media screen and (max-width: 1250px){
-  .coluna-programacao {
-    width: 12em !important;
-    height: 12em !important;
-  }
-}
-@media screen and (max-width: 1218px){
-  .coluna-programacao {
-    width: 11.5em !important;
-    height: 1.5em !important;
-  }
-}*/
