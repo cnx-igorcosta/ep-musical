@@ -7,7 +7,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
 
   prgCtrl.logo = null;
   prgCtrl.programa = {};
-  prgCtrl.diaNav = 2;//SEGUNDA
+  prgCtrl.diaNav = getDiaSemanaAtual();
   prgCtrl.isDetalhar = false;
 
   //prgCtrl.isExclusao = false;
@@ -142,3 +142,8 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
    prgCtrl.preencherVazios();
    prgCtrl.iniciar();
 });
+
+
+function getDiaSemanaAtual() {
+  return new Date().getDay()+1;
+}

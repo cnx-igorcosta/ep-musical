@@ -5,15 +5,12 @@
   "scripts": {
     "start": "node ./dist/app.js",
     "start:dev": "node_modules/.bin/nodemon ./app/app.js --exec babel-node",
-    "start:prd": "npm run build && npm start",
-    "build": "rimraf dist [\"ENOTEMPTY\"] && babel app -d dist --ignore app/public && npm run copy-files",
-    "copy-files": "cpx \"app/src/bin/*\" \"dist/src/bin/\" && cpx \"app/public/**\" \"dist/public/\"",
-    "create-source:kinghost": "rimraf kinghost [\"ENOTEMPTY\"]",
-    "copy-files:kinghost": "cpx \"app/public/**\" \"kinghost/public/\" && cpx \"package.json\" \"kinghost/\" && cpx \"package-lock.json\" \"kinghost/\"",
-    "transpile-code:kinghost": "babel app -d kinghost --ignore app/public",
-    "package:kinghost": "npm run create-source:kinghost && npm run copy-files:kinghost && npm run transpile-code:kinghost",
-    "build:kinghost": "rimraf ../apps_nodejs [\"ENOTEMPTY\"] && cpx \"kinghost/**\" \"../apps_nodejs/\"",
-    "install-dependencies:kinghost": "cd ../apps_nodejs && npm install"
+    "create-source": "rimraf kinghost [\"ENOTEMPTY\"]",
+    "copy-files": "cpx \"app/public/**\" \"kinghost/public/\" && cpx \"package.json\" \"kinghost/\" && cpx \"package-lock.json\" \"kinghost/\"",
+    "transpile-code": "babel app -d kinghost --ignore app/public",
+    "install-dependencies": "cd ../apps_nodejs && npm install",
+    "package": "npm run create-source && npm run copy-files && npm run transpile-code",
+    "build": "rimraf ../apps_nodejs [\"ENOTEMPTY\"] && cpx \"kinghost/**\" \"../apps_nodejs/\" && npm run install-dependencies"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",
