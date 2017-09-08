@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./dist/app.js",
-    "start:dev": "node_modules/.bin/nodemon ./app/app.js --exec babel-node",
+    "start:dev": "nodemon ./app/app.js --exec babel-node",
     "create-source": "rimraf kinghost [\"ENOTEMPTY\"]",
     "copy-files": "cpx \"app/public/**\" \"kinghost/public/\" && cpx \"package.json\" \"kinghost/\" && cpx \"package-lock.json\" \"kinghost/\"",
     "transpile-code": "babel app -d kinghost --ignore app/public",
@@ -29,6 +29,7 @@
     "morgan": "~1.8.1",
     "mysql": "^2.13.0",
     "png-to-jpeg": "^1.0.1",
+    "renamer": "^0.6.1",
     "rimraf": "^2.6.1",
     "serve-favicon": "~2.4.2"
   },

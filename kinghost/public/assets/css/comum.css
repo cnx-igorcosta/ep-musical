@@ -307,7 +307,14 @@ div.evento:after {
     height: 5.5em;
   }
 }
-
+@media screen and (max-width: 840px){
+  #programacao {
+    padding-top: 0;
+  }
+  div.semana {
+    padding-top: 0em !important;
+  }
+}
 select {
   border-radius: 4px;
   border: solid 1px #e0e0e0;
