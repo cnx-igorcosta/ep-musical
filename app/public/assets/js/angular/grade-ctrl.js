@@ -84,6 +84,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     for(var i = 0; i < listaSemana.length; i++) {
       var semana = listaSemana[i];
       for(var j = 0; j < semana.programas.length; j++) {
+        semana.programas[i].descricao = semana.programas[i].descricao.replace(/\r?\n/g, '<br />');
         semana.programas.sort(function(a,b){
           if(a.hora_inicial && b.hora_inicial){
             var data_a = new Date('1970-01-01 '+a.hora_inicial);
