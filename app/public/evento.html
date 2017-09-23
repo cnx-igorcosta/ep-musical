@@ -19,8 +19,7 @@
 		<link href="http://fonts.googleapis.com/css?family=Montserrat:300,400" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="assets/css/lib/image-overlay.css" />
 
-
-	</script>
+		<script src="assets/js/map.js"></script>
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -28,14 +27,13 @@
 			<!-- Header -->
 				<div id="header">
 					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<!-- <li><a class="barra-separacao" href="/index">HOME</a></li>
-								<li><a class="barra-separacao" href="/agenda">AGENDA</a></li>
-								<li class=""><a href="/canal">CANAL</a></li> -->
-							</ul>
-						</nav>
-
+					<nav id="nav">
+						<ul>
+							<li><a class="barra-separacao" href="/index">HOME</a></li>
+							<li><a class="barra-separacao" href="/agenda">AGENDA</a></li>
+							<li class=""><a href="/canal">CANAL</a></li>
+						</ul>
+					</nav>
 				</div>
 
 			<!-- Highlights -->
@@ -43,24 +41,16 @@
 					<div class="row">
 						<section class="3u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;"></section>
 						<section id="programacao" class="6u 12u$(narrower) 12u$(mobilep)">
-							<h2>TRANSMISSÃO AO VIVO!</h2>
-							<h3>TUDO QUE ROLA AO VIVO PRA VOCÊ!</h3>
+							<h2>AGENDA</h2>
 						</section>
 						<section class="3u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;"></section>
 					</div>
 					<div class="row">
 						<section class="3u 12u" style="padding-top:1em;"></section>
 						<section class="6u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;">
-							<!-- VIDEO SCRIPT -->
-							<link href="http://vjs.zencdn.net/6.0.0/video-js.css" rel="stylesheet">
-							<style>.video-js .vjs-time-control{display: none;}.video-js .vjs-progress-control{display: none;}</style>
-							<video id="player_webtv" class="video-js vjs-big-play-centered vjs-fluid" autoplay  controls preload="auto" width="100%" height="100%" data-setup="{ 'fluid':true,'aspectRatio':'16:9' }" >
-							   <source src="http://stmv2.video.foxsolucoes.net/walter9679/walter9679/playlist.m3u8" type="application/x-mpegURL">
-							</video>
-							<script src="//vjs.zencdn.net/6.0.0/video.js"></script>
-							<script src="//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.8.2/videojs-contrib-hls.min.js"></script>
-							<script>var myPlayer=videojs('player_webtv',{},function(){var player=this;player.on("pause",function(){player.one("play",function(){player.load();player.play();});});})</script>
-							<!-- END VIDEO SCRIPT -->
+							<div id="map" class="12u$" style="width: 100%; height:350px; position: relative; overflow: hidden; transform: translateZ(0px); padding: 0; margin-top: 10px;">
+	            	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOuXZNDEQIEFl1TUqoNMJKwyNlYwYYynQ&signed_in=true&libraries=places&callback=initMapDirection"></script>
+	            </div>
 						</section>
 						<section class="3u 12u" ></section>
 					</div>
@@ -101,7 +91,7 @@
 													<h2 class="10u 12u(narrower)">{{dia_semana.dia_nome}}&ensp;|&ensp;{{prg.hora_inicial}}</h2>
 													<i ng-click="prgCtrl.detalhar(prg);" class="fa fa-chevron-circle-right 2u(narrower)" aria-hidden="true"></i>
 													<h3 class="10u 12u(narrower)">{{prg.nome}}</h3><br>
-													<pre><p class="12u 12u(narrower)">{{prg.descricao}}</p><pre>
+													<p class="12u 12u(narrower)">{{prg.descricao}}</p>
 											</div>
 										</div>
 									</div>
@@ -110,34 +100,8 @@
 							<section class="3u 12u(narrower)"></section>
 						</div>
 					</div>
+				</div>
 
-
-					<div class="row" ng-show="prgCtrl.isDetalhar">
-						<section class="3u 12u(narrower)"></section>
-						<section class="6u 12u(narrower)">
-							<form>
-								<div id="detalhamento" class="row">
-									<div class="12u 12u(mobilep)"><img style="max-width: 100%;" data-ng-src="{{prgCtrl.programa.logo}}"></div>
-									<div class="2u 12u(mobilep)"><b>Programação:</b></div>
-									<div class="10u 12u(mobilep)">{{prgCtrl.programa.nome}}</div>
-									<div class="2u 12u(mobilep)"><b>Dia: </b></div>
-									<div class="10u 12u(mobilep)">{{prgCtrl.programa.label_semana}}</div>
-									<div class="2u 12u(mobilep)"><b>Horário: </b></div>
-									<div class="10u 12u(mobilep)">{{prgCtrl.programa.hora_inicial}} às {{prgCtrl.programa.hora_final}}</div>
-									<div class="2u 12u(mobilep)"><b>Descrição: </b></div>
-									<div class="10u 12u(mobilep)">{{prgCtrl.programa.descricao}}</div>
-								</div>
-								<div class="row">
-									<div class="12u">
-										<ul class="actions">
-											<li><a class="button alt" ng-click="prgCtrl.limpar()" href="#semana">Voltar</a></li>
-										</ul>
-									</div>
-								</div>
-							</form>
-						</section>
-						<section class="3u 12u(narrower)"></section>
-					</div>
 				</section>
 
 			<!-- Footer -->

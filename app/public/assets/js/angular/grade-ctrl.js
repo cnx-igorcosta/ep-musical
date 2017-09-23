@@ -18,7 +18,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     {dia: 5, dia_nome: 'QUINTA', programas: []},
     {dia: 6, dia_nome: 'SEXTA', programas: []},
     {dia: 7, dia_nome: 'SÁBADO', programas: []},
-    {dia: 1, dia_nome: 'DOMINGO', programas: []}
+  //  {dia: 1, dia_nome: 'DOMINGO', programas: []}
   ];
   prgCtrl.diasSemanaNav = [
     {"id": 2, "label": "SEGUNDA"},
@@ -27,7 +27,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     {"id": 5, "label": "QUINTA"},
     {"id": 6, "label": "SEXTA"},
     {"id": 7, "label": "SÁBADO"},
-    {"id": 1, "label": "DOMINGO"}
+  //  {"id": 1, "label": "DOMINGO"}
   ];
 
   prgCtrl.iniciar = function(){
@@ -58,7 +58,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
 
   prgCtrl.organizarProgramasPorDiaSemana = function(listaPrograma) {
     var listaSemana = [
-      {dia: 1, dia_nome: 'DOMINGO', programas: []},
+    //  {dia: 1, dia_nome: 'DOMINGO', programas: []},
       {dia: 2, dia_nome: 'SEGUNDA', programas: []},
       {dia: 3, dia_nome: 'TERÇA', programas: []},
       {dia: 4, dia_nome: 'QUARTA', programas: []},
@@ -84,7 +84,6 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     for(var i = 0; i < listaSemana.length; i++) {
       var semana = listaSemana[i];
       for(var j = 0; j < semana.programas.length; j++) {
-        semana.programas[i].descricao = semana.programas[i].descricao.replace(/\r?\n/g, '<br />');
         semana.programas.sort(function(a,b){
           if(a.hora_inicial && b.hora_inicial){
             var data_a = new Date('1970-01-01 '+a.hora_inicial);
@@ -115,7 +114,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
 
   prgCtrl.preencherVazios = function() {
     var quantMaxPrg = 6;
-    for(var i = 0; i < 7; i++) {
+    for(var i = 0; i < 6; i++) {
       var semana = prgCtrl.programas[i];
       if(semana.programas.length < quantMaxPrg) {
         var faltam =  quantMaxPrg - semana.programas.length;

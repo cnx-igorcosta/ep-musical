@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html ng-app="epmusicalApp">
+	<head>
+		<title>EP Musical</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="304Fix" content="safari-fix">
+		<link rel="stylesheet" href="assets/css/comum.css" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if IE]><link rel="stylesheet" href="assets/css/lib/image-overlay-ie.css" /><![endif]-->
+
+		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+		<link rel="stylesheet" href="assets/css/lib/custom-file-input.css" />
+		<link rel="stylesheet" href="assets/css/lib/image-overlay.css" />
+	</script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<!-- <li class="current"><a href="/canal.html">Canal</a></li> -->
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Highlights -->
+				<section class="wrapper style1">
+					<div class="row">
+						<section class="3u 6u(narrower) 12u$(mobilep)">
+						</section>
+						<section id="programacao" class="6u 12u$(narrower) 12u$(mobilep)">
+							<h2>CADASTRO DE AGENDAS DE EVENTOS</h2>
+							<!-- <h3>TUDO QUE ROLA AO VIVO PRA VOCÊ!</h3> -->
+						</section>
+						<section class="3u 6u(narrower) 12u$(mobilep)">
+					</div>
+					<div ng-controller="eventoCtrl as evCtrl">
+						<div class="row">
+							<section class="3u 12u(narrower)"></section>
+							<section class="6u 12u(narrower)">
+								<h3 ng-show="evCtrl.mensagem">{{evCtrl.mensagem}}</h2>
+								<form>
+									<div class="row 50%">
+										<div class="6u 12u(mobilep)">
+											<input type="text" id="nome" placeholder="Nome" ng-model="evCtrl.evento.nome"/>
+										</div>
+										<div class="6u 12u(mobilep)">
+											<input type="text" id="data" placeholder="Data" ng-model="evCtrl.evento.data"/>
+										</div>
+										<div class="6u 12u(mobilep)">
+											<input type="text" id="hora" placeholder="Hora" ng-model="evCtrl.evento.hora" mask='29:59'/>
+										</div>
+										<div class="6u 12u(mobilep)">
+											<input type="text" id="endereco" placeholder="Endereço" ng-model="evCtrl.evento.endereco"/>
+										</div>
+										<div class="6u 12u(mobilep)">
+											<input type="text" id="preco" placeholder="Preço" ng-model="evCtrl.evento.preco"/>
+										</div>
+										<div class="6u 12u(mobilep)">
+											<input type="text" id="musicas" placeholder="Músicas" ng-model="evCtrl.evento.musicas"/>
+										</div>
+									</div>
+									<div class="row 50%">
+										<div class="6u 12u(mobilep)">
+											<textarea name="descricao" id="descricao" placeholder="Descrição" rows="3" ng-model="evCtrl.evento.descricao"></textarea>
+										</div>
+										<div class="6u 12u(mobilep)">
+											<input type="file" name="file-7[]" id="file-7" class="inputfile inputfile-6" onchange="angular.element(this).scope().evCtrl.uploadFile(this.files);" data-multiple-caption="{count} arquivos" multiple/>
+											<label for="file-7" ng-show="!evCtrl.isEdicao || evCtrl.logoRemovido"><span id="filename" ng-show="evCtrl.uploaded"></span><span ng-hide="evCtrl.uploaded"></span> <strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg>Escolher imagem</strong></label>
+
+											<div class="imagem-logo" ng-show="evCtrl.isEdicao && !evCtrl.logoRemovido && !evCtrl.uploaded">
+												<img id="imagem-logo" data-ng-src="{{evCtrl.programa.logo}}" fall-back-src="./images/programacao-ex.jpg" >
+													<a href="" class="fa fa-trash imagem-logo" ng-click="evCtrl.removerImagemEdicao()" style="padding-right:60%"></a>
+												</img>
+											</div>
+
+										</div>
+									</div>
+									<div class="row">
+										<div class="12u">
+											<ul class="actions">
+												<li><a href="" class="button alt" ng-click="evCtrl.salvar()">Salvar</a></li>
+												<li><a class="button alt" ng-click="evCtrl.limpar()">Limpar</a></li>
+											</ul>
+										</div>
+									</div>
+								</form>
+							</section>
+							<section class="3u 12u(narrower)"></section>
+						</div>
+				</div>
+				</section>
+				</section>
+
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+						<div class="row">
+							<section class="3u 12u(narrower)"></section>
+							<section class="1u 12u(narrower) 12u$(mobilep)" style="text-align: center;">
+								<img src="./images/logo-branco.png" alt="" style="width: 3em;">
+							</section>
+							<section class="5u 12u(narrower)">
+								<p class="footer">Somos um canal de divulgação de artistas musicais e nosso programa promove encontros, Entrevistas e apresentações em todas as ramificações da música.</p>
+							</section>
+							<section class="3u 12u(narrower)"></section>
+
+						</div>
+					</div>
+
+					<!-- Icons -->
+						<!-- <ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+						</ul> -->
+
+					<!-- Copyright -->
+						<div class="copyright">
+							<ul class="menu">
+								<!-- <li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+							</ul>
+						</div>
+
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+			<!-- ANGULAR -->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
+			<script src="assets/js/angular/epmusical-app.js"></script>
+			<script src="assets/js/angular/evento-ctrl.js"></script>
+			<!-- EXTERNAL LIBS -->
+			<script src="assets/js/lib/jquery.custom-file-input.js"></script>
+			<script src="assets/js/lib/ngMask.min.js"></script>
+			<script src="assets/js/lib/angular-base64.js"></script>
+
+	</body>
+</html>

@@ -1,34 +1,35 @@
-App.controller('programacaoCtrl', function($scope, $resource, $base64){
-  var prgCtrl = this;
+//https://github.com/dalelotts/angular-bootstrap-datetimepicker
+App.controller('eventoCtrl', function($scope, $resource, $base64){
+  var evCtrl = this;
 
-  var ProgramacaoService = $resource('/programacao/', null, {
+  var ProgramacaoService = $resource('/evento/', null, {
     get : { method: 'GET', isArray:true },
     post: { method: 'POST' },
     delete: { method: 'DELETE' },
     put: {method: 'PUT' },
   });
 
-  prgCtrl.mensagem = '';
-  prgCtrl.logo = null;
-  prgCtrl.programa = {};
-  prgCtrl.uploaded = false;
-  prgCtrl.programa.dia_semana = 0;
-  prgCtrl.diaNav = 2;//SEGUNDA
-  prgCtrl.isDetalhar = false;
-  prgCtrl.isEdicao = false;
-  prgCtrl.logoRemovido = false;
+  evCtrl.mensagem = '';
+  evCtrl.logo = null;
+  evCtrl.programa = {};
+  evCtrl.uploaded = false;
+  evCtrl.programa.dia_semana = 0;
+  evCtrl.diaNav = 2;//SEGUNDA
+  evCtrl.isDetalhar = false;
+  evCtrl.isEdicao = false;
+  evCtrl.logoRemovido = false;
 
-  //prgCtrl.isExclusao = false;
-  prgCtrl.programas = [
+  //evCtrl.isExclusao = false;
+  evCtrl.programas = [
     {dia: 2, dia_nome: 'SEGUNDA', programas: []},
     {dia: 3, dia_nome: 'TERÇA', programas: []},
     {dia: 4, dia_nome: 'QUARTA', programas: []},
     {dia: 5, dia_nome: 'QUINTA', programas: []},
     {dia: 6, dia_nome: 'SEXTA', programas: []},
     {dia: 7, dia_nome: 'SÁBADO', programas: []},
-  //  {dia: 1, dia_nome: 'DOMINGO', programas: []}
+    {dia: 1, dia_nome: 'DOMINGO', programas: []}
   ];
-  prgCtrl.diasSelect = [
+  evCtrl.diasSelect = [
     {"id": 0, "label": "Selecione o dia da semana"},
     {"id": 2, "label": "SEGUNDA"},
     {"id": 3, "label": "TERÇA"},
@@ -36,85 +37,85 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     {"id": 5, "label": "QUINTA"},
     {"id": 6, "label": "SEXTA"},
     {"id": 7, "label": "SÁBADO"},
-  //  {"id": 1, "label": "DOMINGO"}
+    {"id": 1, "label": "DOMINGO"}
   ];
-  prgCtrl.diasSemanaNav = [
+  evCtrl.diasSemanaNav = [
     {"id": 2, "label": "SEGUNDA"},
     {"id": 3, "label": "TERÇA"},
     {"id": 4, "label": "QUARTA"},
     {"id": 5, "label": "QUINTA"},
     {"id": 6, "label": "SEXTA"},
     {"id": 7, "label": "SÁBADO"},
-  //  {"id": 1, "label": "DOMINGO"}
+    {"id": 1, "label": "DOMINGO"}
   ];
 
-  prgCtrl.iniciar = function(){
-    prgCtrl.limpar();
+  evCtrl.iniciar = function(){
+    evCtrl.limpar();
   };
 
-  prgCtrl.detalhar = function(programa){
-    prgCtrl.programa = programa;
-    prgCtrl.isDetalhar = true;
+  evCtrl.detalhar = function(programa){
+    evCtrl.programa = programa;
+    evCtrl.isDetalhar = true;
   }
 
-  prgCtrl.salvar = function(){
-    var programaSalvar = prgCtrl.programa;
-    programaSalvar.logo = prgCtrl.logo;
+  evCtrl.salvar = function(){
+    var programaSalvar = evCtrl.programa;
+    programaSalvar.logo = evCtrl.logo;
     //programaSalvar.descricao = programaSalvar.descricao.replace(/\r?\n/g, '<br />');
 
-    if(prgCtrl.isValido()){
+    if(evCtrl.isValido()){
       if(programaSalvar.id){
         ProgramacaoService.put(programaSalvar, function(retorno) {
-          if(retorno.erro) prgCtrl.mensagem = 'Erro ao atualizar informações de programa';
-          prgCtrl.limpar();
-          prgCtrl.mensagem = 'Atualizado com sucesso!';
-        }, prgCtrl.tratarErro);
+          if(retorno.erro) evCtrl.mensagem = 'Erro ao atualizar informações de programa';
+          evCtrl.limpar();
+          evCtrl.mensagem = 'Atualizado com sucesso!';
+        }, evCtrl.tratarErro);
       }else{
         ProgramacaoService.post(programaSalvar, function(retorno) {
-          if(retorno.erro) prgCtrl.mensagem = 'Erro ao salvar programa';
-          prgCtrl.limpar();
-          prgCtrl.mensagem = 'Salvo com sucesso!';
-        }, prgCtrl.tratarErro);''
+          if(retorno.erro) evCtrl.mensagem = 'Erro ao salvar programa';
+          evCtrl.limpar();
+          evCtrl.mensagem = 'Salvo com sucesso!';
+        }, evCtrl.tratarErro);''
       }
-      prgCtrl.programa = {};
+      evCtrl.programa = {};
     }
   };
 
-  prgCtrl.editar = function(programa){
-    prgCtrl.programa = programa;
-    prgCtrl.isEdicao = true;
-    prgCtrl.isDetalhar = false;
-    prgCtrl.logoRemovido = false;
-    prgCtrl.logo = programa.logo;
+  evCtrl.editar = function(programa){
+    evCtrl.programa = programa;
+    evCtrl.isEdicao = true;
+    evCtrl.isDetalhar = false;
+    evCtrl.logoRemovido = false;
+    evCtrl.logo = programa.logo;
   }
 
-  prgCtrl.buscar = function(){
-    prgCtrl.programas = [];
-    prgCtrl.mensagem = '';
+  evCtrl.buscar = function(){
+    evCtrl.programas = [];
+    evCtrl.mensagem = '';
     var params = {
-      nome: prgCtrl.programa.nome,
-      alias: prgCtrl.programa.alias
+      nome: evCtrl.programa.nome,
+      alias: evCtrl.programa.alias
     };
 
     ProgramacaoService.get(params, function(programas) {
-      prgCtrl.programas = programas;
-    }, prgCtrl.tratarErro);
+      evCtrl.programas = programas;
+    }, evCtrl.tratarErro);
   };
 
-  prgCtrl.listar = function(){
-    prgCtrl.programas = [];
-    prgCtrl.mensagem = '';
+  evCtrl.listar = function(){
+    evCtrl.programas = [];
+    evCtrl.mensagem = '';
     ProgramacaoService.query(function(retorno){
-        prgCtrl.base64ToImage(retorno);
-        var listaSemana = prgCtrl.organizarProgramasPorDiaSemana(retorno);
-        prgCtrl.programas = prgCtrl.organizarProgramasPorHora(listaSemana);
-        prgCtrl.preencherVazios();
-    }, prgCtrl.tratarErro);
+        evCtrl.base64ToImage(retorno);
+        var listaSemana = evCtrl.organizarProgramasPorDiaSemana(retorno);
+        evCtrl.programas = evCtrl.organizarProgramasPorHora(listaSemana);
+        evCtrl.preencherVazios();
+    }, evCtrl.tratarErro);
   };
 
-  prgCtrl.organizarProgramasPorDiaSemana = function(listaPrograma) {
+  evCtrl.organizarProgramasPorDiaSemana = function(listaPrograma) {
     var listaSemana = [
-    //  {dia: 1, dia_nome: 'DOMINGO', programas: []},
+      {dia: 1, dia_nome: 'DOMINGO', programas: []},
       {dia: 2, dia_nome: 'SEGUNDA', programas: []},
       {dia: 3, dia_nome: 'TERÇA', programas: []},
       {dia: 4, dia_nome: 'QUARTA', programas: []},
@@ -135,7 +136,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     return listaSemana;
   };
 
-  prgCtrl.organizarProgramasPorHora = function(listaSemana) {
+  evCtrl.organizarProgramasPorHora = function(listaSemana) {
     var retorno = [];
     for(var i = 0; i < listaSemana.length; i++) {
       var semana = listaSemana[i];
@@ -153,7 +154,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   };
 
 
-  prgCtrl.base64ToImage = function(listaPrograma) {
+  evCtrl.base64ToImage = function(listaPrograma) {
     for(var i = 0; i <listaPrograma.length; i++) {
       var programa = listaPrograma[i];
       if(programa.logo) {
@@ -168,10 +169,10 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     }
   };
 
-  prgCtrl.preencherVazios = function() {
+  evCtrl.preencherVazios = function() {
     var quantMaxPrg = 6;
-    for(var i = 0; i < 6; i++) {
-      var semana = prgCtrl.programas[i];
+    for(var i = 0; i < 7; i++) {
+      var semana = evCtrl.programas[i];
       if(semana.programas.length < quantMaxPrg) {
         var faltam =  quantMaxPrg - semana.programas.length;
         var progrmamaADefinir = {
@@ -187,89 +188,89 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     }
   };
 
-  prgCtrl.mostrarDia = function(idDia) {
-    prgCtrl.diaNav = idDia;
+  evCtrl.mostrarDia = function(idDia) {
+    evCtrl.diaNav = idDia;
   }
 
-  // prgCtrl.excluirPrograma = function(idPrograma) {
-  //   prgCtrl.programa.id = idPrograma;
-  //   prgCtrl.isExclusao = true;
+  // evCtrl.excluirPrograma = function(idPrograma) {
+  //   evCtrl.programa.id = idPrograma;
+  //   evCtrl.isExclusao = true;
   // }
 
-  prgCtrl.deletar = function(id){
-    prgCtrl.mensagem = '';
+  evCtrl.deletar = function(id){
+    evCtrl.mensagem = '';
     if (id && confirm("Deseja realmente deletar programação?")) {
       ProgramacaoService.delete({id: id}, function(retorno){
         alert('Excluído com sucesso');
-        /*var index = prgCtrl.programas.indexOf(programa);
-        prgCtrl.programas.splice(index, 1);*/
-        prgCtrl.limpar();
-      }, prgCtrl.tratarErro);
+        /*var index = evCtrl.programas.indexOf(programa);
+        evCtrl.programas.splice(index, 1);*/
+        evCtrl.limpar();
+      }, evCtrl.tratarErro);
     }
   };
 
-  prgCtrl.isValido = function(){
-    prgCtrl.mensagem = '';
+  evCtrl.isValido = function(){
+    evCtrl.mensagem = '';
     var retorno = true;
-    // if(!prgCtrl.programa.nome){
-    //   prgCtrl.mensagem = 'Campo Nome é obrigatório';
+    // if(!evCtrl.programa.nome){
+    //   evCtrl.mensagem = 'Campo Nome é obrigatório';
     //   retorno = false;
     // }
-    // if(!prgCtrl.programa.alias){
-    //   prgCtrl.mensagem = 'Campo Alias é obrigatório';
+    // if(!evCtrl.programa.alias){
+    //   evCtrl.mensagem = 'Campo Alias é obrigatório';
     //   retorno = false;
     // }
     return retorno;
   };
 
-  prgCtrl.limpar = function(){
-    prgCtrl.mensagem = '';
-    prgCtrl.logo = null;
-    prgCtrl.programa = {};
-    prgCtrl.programa.dia_semana = 0;
-    prgCtrl.diaNav = 2
-    prgCtrl.isDetalhar = false;
-    prgCtrl.uploaded = false;
-    prgCtrl.isEdicao = false;
-    prgCtrl.logoRemovido = false;
+  evCtrl.limpar = function(){
+    evCtrl.mensagem = '';
+    evCtrl.logo = null;
+    evCtrl.programa = {};
+    evCtrl.programa.dia_semana = 0;
+    evCtrl.diaNav = 2
+    evCtrl.isDetalhar = false;
+    evCtrl.uploaded = false;
+    evCtrl.isEdicao = false;
+    evCtrl.logoRemovido = false;
     limparUploadFileLabel();
-  //  prgCtrl.isExclusao = false;
-    prgCtrl.listar();
+  //  evCtrl.isExclusao = false;
+    evCtrl.listar();
   };
 
-  prgCtrl.isBuscar = function(){
-    return (prgCtrl.programa.nome || prgCtrl.programa.alias);
+  evCtrl.isBuscar = function(){
+    return (evCtrl.programa.nome || evCtrl.programa.alias);
   }
 
-  prgCtrl.tratarErro = function(error){
-    prgCtrl.mensagem = 'Ocorreu um erro '+error.data.mensagem;
+  evCtrl.tratarErro = function(error){
+    evCtrl.mensagem = 'Ocorreu um erro '+error.data.mensagem;
     console.log(error);
   };
 
-  prgCtrl.uploadFile = function(files) {
-    prgCtrl.uploaded = false;
-    prgCtrl.logoRemovido = false;
-    prgCtrl.mensagem = '';
+  evCtrl.uploadFile = function(files) {
+    evCtrl.uploaded = false;
+    evCtrl.logoRemovido = false;
+    evCtrl.mensagem = '';
     var f = files[0];
     if(f.size > 1000000){
-      prgCtrl.mensagem = 'Tamanho máximo da imagem = 1Mb';
+      evCtrl.mensagem = 'Tamanho máximo da imagem = 1Mb';
       //limparUploadFileLabel();
     }else {
       var r = new FileReader();
-      prgCtrl.uploaded = true;
+      evCtrl.uploaded = true;
       r.onloadend = function(e) {
-        prgCtrl.logo = e.target.result;
+        evCtrl.logo = e.target.result;
       }
       r.readAsDataURL(f); //once defined all callbacks, begin reading the file
     }
     $scope.$apply();
    };
 
-   prgCtrl.removerImagemEdicao = function(){
-       prgCtrl.logoRemovido = true;
+   evCtrl.removerImagemEdicao = function(){
+       evCtrl.logoRemovido = true;
    }
 
-  //  prgCtrl.formatTime = function(programaSalvar) {
+  //  evCtrl.formatTime = function(programaSalvar) {
   //    let hhmm_inicial = programaSalvar.hora_inicial.split(':');
   //    programaSalvar.hora_inicial = new Date('1970','01','01',hhmm_inicial[0], hhmm_inicial[1]);
    //
@@ -277,8 +278,8 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   //    programaSalvar.hora_final = new Date('1970','01','01',hhmm_final[0], hhmm_final[1]);
   //  }
 
-   prgCtrl.preencherVazios();
-   prgCtrl.iniciar();
+   //evCtrl.preencherVazios();
+   //evCtrl.iniciar();
 });
 
 function limparUploadFileLabel() {
@@ -286,5 +287,5 @@ function limparUploadFileLabel() {
 }
 
  // function iniciarPrograma(){
- //   angular.element(document.getElementById('programa')).scope().prgCtrl.iniciar();
+ //   angular.element(document.getElementById('programa')).scope().evCtrl.iniciar();
  // }

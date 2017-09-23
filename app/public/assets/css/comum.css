@@ -1,3 +1,11 @@
+pre {
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
+}
+
 #header {
   position: fixed;
     width: 100%;
@@ -30,10 +38,9 @@
   height: 0.25em;
   content: '';
   display: block;
-  position: relative;
+  position: absolute;
   top: 100%;
 }
-
 
 .menu-login {
   font-size: 0.5em;
@@ -294,6 +301,17 @@ div.evento:after {
   margin-bottom: 1em;
 }
 
+.barra-separacao:after {
+  background-color: #fffefe;
+  width: 0.1em;
+  height: 1.3em;
+  content: '';
+  display: block;
+  position: absolute;
+  margin-left: 100%;
+  top: 1.2em;
+}
+
 @media screen and (max-width: 1280px){
   #programacao {
     padding-top: 4em;
@@ -410,10 +428,10 @@ div#grade-programacao {
   float: right;
   padding-right: 1em;
 }
-
 .fa-trash:before {
     padding-right: 1em;
 }
+
 @media screen and (max-width: 1920px){
   .coluna-programacao {
     height: 15.3em !important;

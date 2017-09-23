@@ -66,9 +66,17 @@ app.use('/', _index2.default);
 app.use('/programacao', _programacao2.default);
 //app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
 //PAGES
-// app.use('/controle-programacao', (req, res, next) => {res.sendFile('./public/programacao-controle.html', { root: __dirname })});
 app.use('/controle-programacao', function (req, res, next) {
   res.sendFile(_path2.default.resolve(__dirname, './public/programacao-controle.html'));
+});
+app.use('/controle-agenda', function (req, res, next) {
+  res.sendFile(_path2.default.resolve(__dirname, './public/evento-controle.html'));
+});
+app.use('/agenda', function (req, res, next) {
+  res.sendFile(_path2.default.resolve(__dirname, './public/evento.html'));
+});
+app.use('/canal', function (req, res, next) {
+  res.sendFile(_path2.default.resolve(__dirname, './public/index.html'));
 });
 //REMOVER QUANDO TERMINAR INDEX
 app.use(function (req, res, next) {
