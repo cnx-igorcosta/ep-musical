@@ -48,6 +48,18 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   //  {"id": 1, "label": "DOMINGO"}
   ];
 
+  prgCtrl.horarios = [
+    {value: '', label: 'Selecione o horário'},
+    {value: '15:00,17:00', label: '15:00 às 17:00'},
+    {value: '17:00,19:00', label: '17:00 às 19:00'},
+    {value: '19:00,21:00', label: '19:00 às 21:00'},
+    {value: '21:00,23:00', label: '21:00 às 23:00'},
+  ];
+
+  prgCtrl.horaProgramacao = function(hora) {
+    console.log(hora);
+  }
+
   prgCtrl.iniciar = function(){
     prgCtrl.limpar();
   };
@@ -60,6 +72,9 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   prgCtrl.salvar = function(){
     var programaSalvar = prgCtrl.programa;
     programaSalvar.logo = prgCtrl.logo;
+    var horarios = programaSalvar.horario.split(',');
+    programaSalvar.hora_inicial = horarios[0];
+    programaSalvar.hora_final = horarios[1];
     //programaSalvar.descricao = programaSalvar.descricao.replace(/\r?\n/g, '<br />');
 
     if(prgCtrl.isValido()){
@@ -82,6 +97,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
 
   prgCtrl.editar = function(programa){
     prgCtrl.programa = programa;
+    prgCtrl.programa.horario = programa.hora_inicial + ',' + programa.hora_final;
     prgCtrl.isEdicao = true;
     prgCtrl.isDetalhar = false;
     prgCtrl.logoRemovido = false;

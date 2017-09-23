@@ -66,15 +66,12 @@
 										</select>
 									</div>
 									<div class="6u 12u(mobilep)">
-										<input type="text" id="hora_inicio" placeholder="Hora inicial" ng-model="prgCtrl.programa.hora_inicial"  mask='29:59'/>
-									</div>
-									<div class="6u 12u(mobilep)">
-										<input type="text" name="hora_fim" id="hora_fim" placeholder="Hora de fim" ng-model="prgCtrl.programa.hora_final" mask='29:59'/>
-									</div>
-								</div>
-								<div class="row 50%">
-									<div class="6u 12u(mobilep)">
-										<textarea name="descricao" id="descricao" placeholder="Descrição" rows="3" ng-model="prgCtrl.programa.descricao"></textarea>
+										<select name="horario" id="horario"
+														ng-model="prgCtrl.programa.horario">
+											<option ng-selected="prgCtrl.programa.horario == horario.value"
+															ng-repeat="horario in prgCtrl.horarios"
+															ng-value="horario.value">{{horario.label}}</option>
+										</select>
 									</div>
 									<div class="6u 12u(mobilep)">
 										<input type="file" name="file-7[]" id="file-7" class="inputfile inputfile-6" onchange="angular.element(this).scope().prgCtrl.uploadFile(this.files);"/>
@@ -85,8 +82,13 @@
 												<a href="" class="fa fa-trash imagem-logo" ng-click="prgCtrl.removerImagemEdicao()" style="padding-right:60%"></a>
 											</img>
 										</div>
-
 									</div>
+									<div class="6u 12u(mobilep)">
+										<textarea name="descricao" id="descricao" placeholder="Descrição" rows="3" ng-model="prgCtrl.programa.descricao"></textarea>
+									</div>
+								</div>
+								<div class="row 50%">
+
 								</div>
 								<div class="row">
 									<div class="12u">
