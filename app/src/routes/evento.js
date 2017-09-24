@@ -4,15 +4,15 @@ import pngToJpeg from 'png-to-jpeg';
 import moment from 'moment';
 import nextIdModule from '../util/next-id';
 
-
 const router = express.Router();
-const nextId = nextIdModule('Programacao');
+const nextIdEvento = nextIdModule('Evento');
+const nextIdImagem = nextIdModule('Imagem');
 
 //GET
-router.get('/:nome?/:dia_semana?',(req, res, next) => {
+router.get('/:nome?/:endereco?',(req, res, next) => {
 
   const nome = req.query.nome;
-  const dia_semana = req.query.dia_semana;
+  const endereco = req.query.endereco;
 
   req.getConnection((err, connection) => {
     if(err) erro('na conexao com o banco de dados', err, res);
@@ -58,40 +58,40 @@ function tratarImagem(base64Image, callback) {
 
 //POST
 router.post('/', (req, res, next) => {
-  const programacao = req.body;
+  const evento = req.body;
   try{
-    tratarImagem(programacao.logo, output => {
-      programacao.imagem = output;
-      programacao.descricao = limitarDescricao(programacao.descricao);
+    // tratarImagem(programacao.logo, output => {
+    //   programacao.imagem = output;
+      evento.descricao = limitarDescricao(evento.descricao);
       req.getConnection((err, connection) => {
         if(err) erro('na conexao com o banco de dados', err, res);
         nextId.get(connection, (err, id) => {
           if(err) erro('ao gerar Id', err, res);
 
           const query =
-          `INSERT INTO Programacao
-            (id, nome, dia_semana, hora_inicial, hora_final, descricao, logo)
+          `INSERT INTO Evento
+            (id, nome, dataHora, endereco, preco, musicas, descricao)
           VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
           const params = [
             id,
-            programacao.nome,
-            programacao.dia_semana,
-            programacao.hora_inicial,
-            programacao.hora_final,
-            programacao.descricao,
-            programacao.imagem,
+            evento.nome,
+            evento.dataHora,
+            evento.endereco,
+            evento.preco,
+            evento.musicas,
+            evento.descricao,
           ];
           connection.query(query, params, (err, result) => {
-            if(err) erro('ao inserir Programação', err, res);
+            if(err) erro('ao inserir Evento', err, res);
 
             return res.status(200).json({id: result.insertId});
           });
         });
       });
-    });
+    // });
   } catch(err) {
-    erro('ao inserir Programação', err, res);
+    erro('ao inserir Evento', err, res);
   }
 });
 

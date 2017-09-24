@@ -145,5 +145,9 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
 
 
 function getDiaSemanaAtual() {
-  return new Date().getDay()+1;
+  var data = new Date().getDay()+1;
+  if(data == 1) {
+    return 2
+  }
+  return data;
 }

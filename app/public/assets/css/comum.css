@@ -821,3 +821,25 @@ div#grade-programacao {
     height: 18em !important;
   }
 }
+
+.tabela {
+  padding: 8px;
+  line-height: 1.42857143;
+  text-align: left;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.tabela td {
+  border-top: 1px solid #ddd;
+}
+.tabela th {
+  border-bottom: 2px solid #ddd;
+}
+
+.botao-tabela {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.botao-tabela i:before {
+  padding-right: 0;
+}
