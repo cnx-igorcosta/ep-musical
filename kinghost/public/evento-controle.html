@@ -20,6 +20,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 		<link rel="stylesheet" href="assets/css/lib/custom-file-input.css" />
 		<link rel="stylesheet" href="assets/css/lib/image-overlay.css" />
+		<link rel="stylesheet" href="assets/css/lib/autocomplete.min.css" />
 	</script>
 	</head>
 	<body>
@@ -58,13 +59,13 @@
 											<input type="text" id="nome" placeholder="Nome" ng-model="evCtrl.evento.nome"/>
 										</div>
 										<div class="6u 12u(mobilep)">
-											<input type="text" id="data" placeholder="Data" ng-model="evCtrl.evento.data"/>
+											<input type="text" id="data" placeholder="Data" ng-model="evCtrl.evento.data"  mask='39/19/9999'/>
 										</div>
 										<div class="6u 12u(mobilep)">
 											<input type="text" id="hora" placeholder="Hora" ng-model="evCtrl.evento.hora" mask='29:59'/>
 										</div>
 										<div class="6u 12u(mobilep)">
-											<input type="text" id="endereco" placeholder="Endereço" ng-model="evCtrl.evento.endereco"/>
+											<input type="text" id="endereco" placeholder="Endereço" g-places-autocomplete ng-model="evCtrl.endereco"/>
 										</div>
 										<div class="6u 12u(mobilep)">
 											<input type="text" id="preco" placeholder="Preço" ng-model="evCtrl.evento.preco"/>
@@ -103,6 +104,37 @@
 						</div>
 				</div>
 				</section>
+				<div class="row" style="background-color:#fff;" ng-controller="eventoCtrl as evCtrl">
+					<section class="3u 6u(narrower) 12u$(mobilep)">
+					</section>
+					<section class="6u 12u$(narrower) 12u$(mobilep)">
+						<table class="tabela">
+							<thead>
+								<th>NOME</th>
+								<th>DATA</th>
+								<th style="text-align:right">AÇÕES</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="evento in evCtrl.eventos">
+									<td>{{evento.nome}}</td>
+									<td>{{evento.dataHora | date: 'dd/MM/yyyy'}}</td>
+									<td style="text-align:right">
+										<a href="" class="button alt botao-tabela"  ng-click="" title="detalhar">
+											<i class="fa fa-eye"></i>
+										</a>
+										<a href="" class="button alt botao-tabela"  ng-click="" title="editar">
+											<i class="fa fa-pencil"></i>
+										</a>
+										<a href="" class="button alt botao-tabela"  ng-click="" title="excluir">
+											<i class="fa fa-trash"></i>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+					<section class="3u 6u(narrower) 12u$(mobilep)" ></section>
+				</div>
 				</section>
 
 
@@ -158,6 +190,8 @@
 			<script src="assets/js/lib/jquery.custom-file-input.js"></script>
 			<script src="assets/js/lib/ngMask.min.js"></script>
 			<script src="assets/js/lib/angular-base64.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCOuXZNDEQIEFl1TUqoNMJKwyNlYwYYynQ"></script>
+			<script src="assets/js/lib/autocomplete.min.js"></script>
 
 	</body>
 </html>

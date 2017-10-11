@@ -52,7 +52,7 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
         prgCtrl.base64ToImage(retorno);
         var listaSemana = prgCtrl.organizarProgramasPorDiaSemana(retorno);
         prgCtrl.programas = prgCtrl.organizarProgramasPorHora(listaSemana);
-        prgCtrl.preencherVazios();
+        //prgCtrl.preencherVazios();
     }, prgCtrl.tratarErro);
   };
 
@@ -139,11 +139,15 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     prgCtrl.isDetalhar = false;
   };
 
-   prgCtrl.preencherVazios();
+   //prgCtrl.preencherVazios();
    prgCtrl.iniciar();
 });
 
 
 function getDiaSemanaAtual() {
-  return new Date().getDay()+1;
+  var data = new Date().getDay()+1;
+  if(data == 1) {
+    return 2
+  }
+  return data;
 }

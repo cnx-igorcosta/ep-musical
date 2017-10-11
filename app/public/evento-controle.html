@@ -65,7 +65,7 @@
 											<input type="text" id="hora" placeholder="Hora" ng-model="evCtrl.evento.hora" mask='29:59'/>
 										</div>
 										<div class="6u 12u(mobilep)">
-											<input type="text" id="endereco" placeholder="Endereço" g-places-autocomplete ng-model="evCtrl.evento.endereco"/>
+											<input type="text" id="endereco" placeholder="Endereço" g-places-autocomplete ng-model="evCtrl.endereco"/>
 										</div>
 										<div class="6u 12u(mobilep)">
 											<input type="text" id="preco" placeholder="Preço" ng-model="evCtrl.evento.preco"/>
@@ -104,7 +104,7 @@
 						</div>
 				</div>
 				</section>
-				<div class="row" style="background-color:#fff;">
+				<div class="row" style="background-color:#fff;" ng-controller="eventoCtrl as evCtrl">
 					<section class="3u 6u(narrower) 12u$(mobilep)">
 					</section>
 					<section class="6u 12u$(narrower) 12u$(mobilep)">
@@ -112,43 +112,13 @@
 							<thead>
 								<th>NOME</th>
 								<th>DATA</th>
-								<th>AÇÕES</th>
+								<th style="text-align:right">AÇÕES</th>
 							</thead>
 							<tbody>
-								<tr>
-									<td>EXPRESSO MUSICAL</td>
-									<td>25/11/2017</td>
-									<td>
-										<a href="" class="button alt botao-tabela"  ng-click="" title="detalhar">
-											<i class="fa fa-eye"></i>
-										</a>
-										<a href="" class="button alt botao-tabela"  ng-click="" title="editar">
-											<i class="fa fa-pencil"></i>
-										</a>
-										<a href="" class="button alt botao-tabela"  ng-click="" title="excluir">
-											<i class="fa fa-trash"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>EXPRESSO MUSICAL</td>
-									<td>25/11/2017</td>
-									<td>
-										<a href="" class="button alt botao-tabela"  ng-click="" title="detalhar">
-											<i class="fa fa-eye"></i>
-										</a>
-										<a href="" class="button alt botao-tabela"  ng-click="" title="editar">
-											<i class="fa fa-pencil"></i>
-										</a>
-										<a href="" class="button alt botao-tabela"  ng-click="" title="excluir">
-											<i class="fa fa-trash"></i>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>EXPRESSO MUSICAL</td>
-									<td>25/11/2017</td>
-									<td>
+								<tr ng-repeat="evento in evCtrl.eventos">
+									<td>{{evento.nome}}</td>
+									<td>{{evento.dataHora | date: 'dd/MM/yyyy'}}</td>
+									<td style="text-align:right">
 										<a href="" class="button alt botao-tabela"  ng-click="" title="detalhar">
 											<i class="fa fa-eye"></i>
 										</a>
@@ -165,7 +135,6 @@
 					</section>
 					<section class="3u 6u(narrower) 12u$(mobilep)" ></section>
 				</div>
-
 				</section>
 
 

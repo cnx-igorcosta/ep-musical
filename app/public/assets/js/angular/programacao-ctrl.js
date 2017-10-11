@@ -124,9 +124,18 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
         prgCtrl.base64ToImage(retorno);
         var listaSemana = prgCtrl.organizarProgramasPorDiaSemana(retorno);
         prgCtrl.programas = prgCtrl.organizarProgramasPorHora(listaSemana);
-        prgCtrl.preencherVazios();
+        //prgCtrl.preencherVazios();
     }, prgCtrl.tratarErro);
   };
+
+  prgCtrl.colunas = function(dia) {
+    if(dia.programas.length == 2 || dia.programas.length == 4){
+      return 'coluna-dois';
+    }
+    else {
+      return 'coluna-tres';
+    }
+  }
 
   prgCtrl.organizarProgramasPorDiaSemana = function(listaPrograma) {
     var listaSemana = [

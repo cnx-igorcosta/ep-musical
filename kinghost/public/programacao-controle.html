@@ -123,7 +123,7 @@
 						<section class="3u 12u(narrower)"></section>
 						<section class="6u 12u(narrower)" style="padding-top:0;">
 							<div class="row">
-								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" ng-repeat="prg in dia_semana.programas track by $index">
+								<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" ng-class="dia_semana.programas.length == 2 || dia_semana.programas.length == 4 ? 'coluna-dois' : 'coluna-tres'" ng-repeat="prg in dia_semana.programas track by $index">
 									<div class="pic image-wrapper overlay-fade-in">
 										<img ng-src="{{prg.logo}}" fall-back-src="./images/programacao-ex.jpg">
 										<div class="image-overlay-content">
@@ -197,6 +197,8 @@
 			<script src="assets/js/lib/jquery.custom-file-input.js"></script>
 			<script src="assets/js/lib/ngMask.min.js"></script>
 			<script src="assets/js/lib/angular-base64.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCOuXZNDEQIEFl1TUqoNMJKwyNlYwYYynQ"></script>
+			<script src="assets/js/lib/autocomplete.min.js"></script>
 
 	</body>
 </html>

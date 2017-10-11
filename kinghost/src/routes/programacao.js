@@ -79,8 +79,8 @@ router.post('/', function (req, res, next) {
           var params = [id, programacao.nome, programacao.dia_semana, programacao.hora_inicial, programacao.hora_final, programacao.descricao, programacao.imagem];
           connection.query(query, params, function (err, result) {
             if (err) erro('ao inserir Programação', err, res);
-
-            return res.status(200).json({ id: result.insertId });
+            console.log(result);
+            return res.status(200).json({/*id: result.insertId*/});
           });
         });
       });

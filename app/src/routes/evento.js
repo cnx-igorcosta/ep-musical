@@ -5,45 +5,64 @@ import moment from 'moment';
 import nextIdModule from '../util/next-id';
 
 const router = express.Router();
-const nextIdEvento = nextIdModule('Evento');
-const nextIdImagem = nextIdModule('Imagem');
+const nextIdEvento = nextIdModule('evento');
+const nextIdImagem = nextIdModule('imagem');
 
 //GET
 router.get('/:nome?/:endereco?',(req, res, next) => {
-
   const nome = req.query.nome;
   const endereco = req.query.endereco;
-
   req.getConnection((err, connection) => {
     if(err) erro('na conexao com o banco de dados', err, res);
 
     let query =
     `SELECT
-      id,
-      nome,
-      dia_semana,
-      hora_inicial,
-      hora_final,
-      descricao,
-      logo
-    FROM
-      Programacao
-    WHERE
-      0 = 0`;
+      id, nome, dataHora, endereco, preco, musicas, descricao
+    FROM Evento WHERE 0 = 0`;
     if(nome){
       query += ` AND nome LIKE ${connection.escape('%'+nome+'%')}`;
     }
-    if(dia_semana){
-      query += ` AND dia_semana = ${connection.escape(dia_semana)}`;
+    if(endereco){
+    query += ` AND endereco LIKE ${connection.escape('%'+endereco+'%')}`;
     }
-    connection.query(query, (err, result) => {
-      if(err) erro('ao buscar Programação', err, res);
-
-      blobToBase64(result);
-      return res.status(200).json(result);
+    connection.query(query, (err, eventos) => {
+      if(err) erro('ao buscar Evento', err, res);
+      return res.status(200).json(eventos);
+      //buscarImagensEvento(res, connection, eventos);
     });
   });
 });
+
+router.get('/imagens:idEvento', (req, res, next) => {
+  const idEvento = req.query.idEvento;
+  req.getConnection((err, connection) => {
+    if(err) erro('na conexao com o banco de dados', err, res);
+    let query = `SELECT id, imagem, idEvento FROM Imagem WHERE idEvento = ${connection.escape(idEvento)}`;
+    connection.query(query, (err, imagens) => {
+      if(err) erro('ao buscar imagens do Evento' + evento.nome, err, res);
+      evento.imagens = blobToBase64(imagens);
+      if(count >= eventos.length) {
+        return res.status(200).json(eventos);
+      }
+    });
+  });
+});
+
+
+function buscarImagensEvento(res, connection, eventos) {
+  let count = 0;
+  for(let i=0; i<eventos.length; i++) {
+    let evento = eventos[i];
+    let query = `SELECT id, imagem, idEvento FROM Imagem WHERE idEvento = ${connection.escape(evento.id)}`;
+    connection.query(query, (err, imagens) => {
+      if(err) erro('ao buscar imagens do Evento' + evento.nome, err, res);
+      evento.imagens = blobToBase64(imagens);
+      if(count >= eventos.length) {
+        return res.status(200).json(eventos);
+      }
+    });
+  }
+}
 
 function tratarImagem(base64Image, callback) {
   if(base64Image.indexOf('image/png') != -1){
@@ -60,21 +79,21 @@ function tratarImagem(base64Image, callback) {
 router.post('/', (req, res, next) => {
   const evento = req.body;
   try{
-    // tratarImagem(programacao.logo, output => {
-    //   programacao.imagem = output;
       evento.descricao = limitarDescricao(evento.descricao);
+      evento.dataHora = moment(evento.dataHora).format("YYYY-MM-DD HH:mm:ss");
       req.getConnection((err, connection) => {
         if(err) erro('na conexao com o banco de dados', err, res);
-        nextId.get(connection, (err, id) => {
+        nextIdEvento.get(connection, (err, id) => {
           if(err) erro('ao gerar Id', err, res);
 
+          evento.id = id;
           const query =
           `INSERT INTO Evento
             (id, nome, dataHora, endereco, preco, musicas, descricao)
           VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
           const params = [
-            id,
+            evento.id,
             evento.nome,
             evento.dataHora,
             evento.endereco,
@@ -85,15 +104,43 @@ router.post('/', (req, res, next) => {
           connection.query(query, params, (err, result) => {
             if(err) erro('ao inserir Evento', err, res);
 
-            return res.status(200).json({id: result.insertId});
+            cadastrarImagemEvento(evento, connection, res);
           });
         });
       });
-    // });
   } catch(err) {
     erro('ao inserir Evento', err, res);
   }
 });
+
+function cadastrarImagemEvento(evento, connection, res) {
+  if(evento.imagens && evento.imagens.length) {
+    let contador = 0;
+    let idImagem = 0;
+    for(let i = 0; i < evento.imagens.length; i++) {
+      const img = evento.imagens[i];
+      tratarImagem(img, output => {
+        nextIdImagem.get(connection, (err, id) => {
+          if(err) erro('ao gerar Id', err, res);
+
+          idImagem = idImagem == 0 ? id : idImagem;
+          const query = `INSERT INTO Imagem (id, imagem, idEvento) VALUES (?, ?, ?)`;
+          const params = [idImagem, output, evento.id];
+          idImagem++;
+          connection.query(query, params, (err, result) => {
+            if(err) erro('ao inserir Evento', err, res);
+            contador++;
+            if(contador == evento.imagens.length){
+              return res.status(200).json({});
+            }
+          });
+        });
+      });
+    }
+  }else{
+    return res.status(200).json({});
+  }
+}
 
 //PUT
 router.put('/', (req, res, next) => {
@@ -149,13 +196,13 @@ function erro(mensagem, err, res){
   res.status(400).json(retornoErro);
 }
 
-function blobToBase64(programas) {
-  for(let i = 0; i < programas.length; i++) {
-    let programa = programas[i];
-    if(programa.logo){
-      programa.logo = new Buffer( programa.logo, 'binary' ).toString('base64');
-    }
+function blobToBase64(imagensBlob) {
+  let imagens = [];
+  for(let i = 0; i < imagensBlob.length; i++) {
+    let img = imagensBlob[i].imagem;
+    imagens.push(new Buffer(img, 'binary' ).toString('base64'));
   }
+  return imagens;
 }
 
 // function decodeBase64Image(dataString) {

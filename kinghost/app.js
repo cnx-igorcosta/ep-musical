@@ -40,9 +40,12 @@ var _programacao = require('./src/routes/programacao');
 
 var _programacao2 = _interopRequireDefault(_programacao);
 
+var _evento = require('./src/routes/evento');
+
+var _evento2 = _interopRequireDefault(_evento);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import corretoresRouter from './src/routes/corretor'
 // import canaisRouter from './src/routes/corretor-seguradora-canal'
 // import festaRouter from './src/routes/festa'
 
@@ -64,6 +67,7 @@ app.use((0, _serveFavicon2.default)(__dirname + '/public/images/favicon.png'));
 //ROUTES
 app.use('/', _index2.default);
 app.use('/programacao', _programacao2.default);
+app.use('/evento', _evento2.default);
 //app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
 //PAGES
 app.use('/controle-programacao', function (req, res, next) {

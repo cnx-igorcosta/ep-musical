@@ -8,16 +8,14 @@ var _mysql = require('mysql');
 
 var _mysql2 = _interopRequireDefault(_mysql);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var dbConnection = (0, _expressMyconnection2.default)(_mysql2.default, {
-  host: 'mysql.epmusicaltv.com.br',
-  user: 'epmusicaltv',
-  password: 'Epmusical123',
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
   port: 3306,
-  database: 'epmusicaltv'
+  database: 'ep-musical'
 }, 'request');
 
 module.exports = dbConnection;

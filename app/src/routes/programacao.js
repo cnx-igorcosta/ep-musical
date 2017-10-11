@@ -84,8 +84,8 @@ router.post('/', (req, res, next) => {
           ];
           connection.query(query, params, (err, result) => {
             if(err) erro('ao inserir Programação', err, res);
-
-            return res.status(200).json({id: result.insertId});
+            console.log(result);
+            return res.status(200).json({/*id: result.insertId*/});
           });
         });
       });
