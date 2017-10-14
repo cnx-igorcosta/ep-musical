@@ -15,7 +15,6 @@ App.controller('eventoCtrl', function($scope, $resource, $base64){
   evCtrl.eventos = [];
   evCtrl.uploaded = false;
   evCtrl.endereco = '';
-  //evCtrl.evento.dia_semana = 0;
   evCtrl.diaNav = 2;//SEGUNDA
   evCtrl.isDetalhar = false;
   evCtrl.isEdicao = false;
