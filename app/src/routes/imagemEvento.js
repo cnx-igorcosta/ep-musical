@@ -2,9 +2,10 @@ import expressPromiseRouter from 'express-promise-router'
 const router = expressPromiseRouter();
 
 //GET IMAGENS EVENTO
-router.get('/:idEvento', (req, res, next) => {
-  const idEvento = req.params.idEvento
+router.get('/:idEvento?', (req, res, next) => {
+  const idEvento = req.query.idEvento
   const contexto = { idEvento, req }
+  contexto.imagens = []
   return Promise.resolve(contexto)
   .then(connect)
   .then(listarImagensEvento)
@@ -48,7 +49,7 @@ const tratarImagensBlob = contexto => {
       }catch(err) {
         reject(err)
       }
-    }
+    } else { resolve(contexto) }
   })
 }
 

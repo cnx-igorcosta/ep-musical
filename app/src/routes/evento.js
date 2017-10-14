@@ -34,6 +34,7 @@ router.post('/', (req, res, next) => {
 })
 //PUT
 router.put('/', (req, res, next) => {
+  //TODO: EXCLUIR IMAGENS AO ATUALIZAR
   const contexto = { evento: req.body, req }
   return Promise.resolve(contexto)
     .then(tratarDataHora)
@@ -117,6 +118,7 @@ const listarEventos = contexto => {
     FROM Evento WHERE 0 = 0`
     if(evento.nome) query += ` AND nome LIKE ${connection.escape('%'+evento.nome+'%')}`
     if(evento.endereco) query += ` AND endereco LIKE ${connection.escape('%'+evento.endereco+'%')}`
+    query += ` ORDER BY dataHora desc`
     try{
       contexto.connection.query(query, (err, eventos) => {
         if(err) reject(err)
@@ -129,21 +131,22 @@ const listarEventos = contexto => {
 
 const salvarImagens = contexto => {
   return new Promise((resolve, reject) => {
-    nextIdImagem.get(contexto.connection, (err, id) => {
-      if(err) reject(err)
-      contexto.imagens.map(img => {
-        img.id = id
-        salvarImagem(img, contexto.connection)
-        id++
+    if(contexto.imagens && contexto.imagens.length) {
+      nextIdImagem.get(contexto.connection, (err, id) => {
+        if(err) reject(err)
+        contexto.imagens.map(img => {
+          img.id = id
+          salvarImagem(img, contexto.connection)
+          id++
+        })
+        resolve(contexto)
       })
-      resolve(contexto)
-    })
+    } else { resolve(contexto) }
   })
 }
 
 const salvarImagem = (img, connection) => {
   const query = `INSERT INTO Imagem (id, imagem, idEvento) VALUES (?, ?, ?)`
-  console.log('id imagem: '+img.id)
   const params = [img.id, img.blob, img.idEvento]
   connection.query(query, params, (err, result) => {
     if(err) erro('ao inserir Evento', err, res)
@@ -163,7 +166,7 @@ const tratarImagensBase64 = contexto => {
             }
           })
         resolve(contexto)
-      }
+      } else { resolve(contexto) }
     } catch(err) { reject(err) }
   })
 }
