@@ -9,8 +9,9 @@ import favicon from 'serve-favicon';
 import dbConfig from './src/config/db'
 import indexRouter from './src/routes/index'
 import programacaoRouter from './src/routes/programacao'
-import eventoRouter from './src/routes/evento'
-import imagemEventoRouter from './src/routes/imagemEvento'
+import admRouter from './src/routes/adm'
+//import eventoRouter from './src/routes/evento'
+//import imagemEventoRouter from './src/routes/imagemEvento'
 // import canaisRouter from './src/routes/corretor-seguradora-canal'
 // import festaRouter from './src/routes/festa'
 
@@ -32,8 +33,9 @@ app.use(favicon(__dirname + '/public/images/favicon.png'));
 //ROUTES
 app.use('/', indexRouter);
 app.use('/programacao', programacaoRouter);
-app.use('/evento', eventoRouter);
-app.use('/imagem', imagemEventoRouter);
+app.use('/adm', admRouter);
+//app.use('/evento', eventoRouter);
+//app.use('/imagem', imagemEventoRouter);
 //app.use('/canal', (req, res, next) => {res.sendFile('./public/canal.html', { root: __dirname  } )});
 //PAGES
 app.use('/controle-programacao', (req, res, next) => {

@@ -435,6 +435,12 @@ div#grade-programacao {
 .fa-trash:before {
     padding-right: 1em;
 }
+#excluir-imagem-evento.fa-trash:before {
+  position: relative;
+  padding-bottom: -7em;
+  top: -220px;
+  left: 190px;
+}
 
 .tabela {
   padding: 8px;

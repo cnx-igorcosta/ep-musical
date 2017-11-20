@@ -9,13 +9,16 @@ App.controller('eventoCtrl', function($scope, $resource, $base64){
     put: {method: 'PUT' },
   });
 
+  var ImagensService = $resource('/imagem/', null, {
+    get : { method: 'GET', isArray:true }
+  })
+
   evCtrl.mensagem = '';
   evCtrl.imagens = [];
   evCtrl.evento = {};
   evCtrl.eventos = [];
   evCtrl.uploaded = false;
   evCtrl.endereco = '';
-  //evCtrl.evento.dia_semana = 0;
   evCtrl.diaNav = 2;//SEGUNDA
   evCtrl.isDetalhar = false;
   evCtrl.isEdicao = false;
@@ -32,7 +35,7 @@ App.controller('eventoCtrl', function($scope, $resource, $base64){
 
   evCtrl.getDataHora = function(){
     var dia = evCtrl.evento.data.substring(0,2);
-    var mes = evCtrl.evento.data.substring(3,5);
+    var mes = evCtrl.evento.data.substring(3,5) -1;
     var ano = evCtrl.evento.data.substring(6,10);
     var hora = evCtrl.evento.hora ? evCtrl.evento.hora.substring(0,2) : 0;
     var minuto = evCtrl.evento.hora ? evCtrl.evento.hora.substring(3,4) : 0;
@@ -63,12 +66,32 @@ App.controller('eventoCtrl', function($scope, $resource, $base64){
     }
   };
 
-  evCtrl.editar = function(programa){
-    evCtrl.programa = programa;
-    evCtrl.isEdicao = true;
-    evCtrl.isDetalhar = false;
-    evCtrl.logoRemovido = false;
-    //evCtrl.logo = programa.logo;
+  evCtrl.editar = function(evento){
+    evCtrl.mensagem = '';
+    var params = {
+      idEvento: evento.id
+    };
+    ImagensService.query(params, function(imagens) {
+      evCtrl.endereco = evento.endereco;
+      evCtrl.evento = evento;
+      evCtrl.evento.imagens = evCtrl.base64ToImage(imagens);
+      //evCtrl.evento.imagens = imagens;
+      evCtrl.formatarDataHora();
+      evCtrl.isEdicao = true;
+      evCtrl.isDetalhar = false;
+    })
+  }
+
+  evCtrl.formatarDataHora = function() {
+    var dh = new Date(evCtrl.evento.dataHora);
+    evCtrl.evento.data = dh.getDate() + '/' + (dh.getMonth()+1) + '/' + dh.getFullYear();
+    evCtrl.evento.hora = leftPad(dh.getHours()) + ':' + leftPad(dh.getMinutes());
+  }
+
+  function leftPad(str) {
+    var pad = '00';
+    str += '';
+    return pad.substring(0, pad.length - str.length) + str;
   }
 
   evCtrl.buscar = function(){
@@ -92,98 +115,31 @@ App.controller('eventoCtrl', function($scope, $resource, $base64){
     }, evCtrl.tratarErro);
   };
 
-  evCtrl.organizarProgramasPorDiaSemana = function(listaPrograma) {
-    var listaSemana = [
-      {dia: 1, dia_nome: 'DOMINGO', programas: []},
-      {dia: 2, dia_nome: 'SEGUNDA', programas: []},
-      {dia: 3, dia_nome: 'TERÇA', programas: []},
-      {dia: 4, dia_nome: 'QUARTA', programas: []},
-      {dia: 5, dia_nome: 'QUINTA', programas: []},
-      {dia: 6, dia_nome: 'SEXTA', programas: []},
-      {dia: 7, dia_nome: 'SÁBADO', programas: []},
-    ];
 
-    for(var i = 0; i < listaPrograma.length; i++) {
-      var prg = listaPrograma[i];
-      for(var j = 0; j < listaSemana.length; j++) {
-        var semana = listaSemana[j];
-        if(prg.dia_semana == semana.dia && semana.programas.length < 6) {
-          semana.programas.push(prg);
-        }
-      }
-    }
-    return listaSemana;
-  };
-
-  evCtrl.organizarProgramasPorHora = function(listaSemana) {
-    var retorno = [];
-    for(var i = 0; i < listaSemana.length; i++) {
-      var semana = listaSemana[i];
-      for(var j = 0; j < semana.programas.length; j++) {
-        semana.programas.sort(function(a,b){
-          if(a.hora_inicial && b.hora_inicial){
-            var data_a = new Date('1970-01-01 '+a.hora_inicial);
-            var data_b = new Date('1970-01-01 '+b.hora_inicial);
-            return (data_a - data_b);
-          }
-        });
-      }
-    }
-    return listaSemana;
-  };
-
-
-  evCtrl.base64ToImage = function(listaPrograma) {
-    for(var i = 0; i <listaPrograma.length; i++) {
-      var programa = listaPrograma[i];
-      //TODO: logo to imagens
-      if(programa.logo) {
-        if(programa.logo.indexOf('base64') != -1){
-          programa.logo = programa.logo.replace(/data:?image\/(jpeg|png|jpg);?base64,?/,'data:image/jpeg;base64,');
+  evCtrl.base64ToImage = function(imagens) {
+    var imgs = [];
+    for(var i = 0; i <imagens.length; i++) {
+      var img = imagens[i];
+      if(img) {
+        if(img.indexOf('base64') != -1){
+          imgs.push(img.replace(/data:?image\/(jpeg|png|jpg);?base64,?/,'data:image/jpeg;base64,'));
         } else{
-          programa.logo = 'data:image/jpeg;base64,'+ programa.logo;
-        }
-      } else{
-          programa.logo = './images/default-programacao.jpg';
-      }
-    }
-  };
-
-  evCtrl.preencherVazios = function() {
-    var quantMaxPrg = 6;
-    for(var i = 0; i < 7; i++) {
-      var semana = evCtrl.programas[i];
-      if(semana.programas.length < quantMaxPrg) {
-        var faltam =  quantMaxPrg - semana.programas.length;
-        var progrmamaADefinir = {
-          nome: 'EP Musical',
-          hora_inicial: 'EM BREVE',
-          descricao:'Em breve mais uma programação musical para você acompanhar!',
-          logo: './images/default-programacao.jpg'
-        };
-        for(var j = 0; j < faltam; j++) {
-          semana.programas.push(progrmamaADefinir);
+          imgs.push('data:image/jpeg;base64,'+ img);
         }
       }
     }
+    return imgs;
   };
 
   evCtrl.mostrarDia = function(idDia) {
     evCtrl.diaNav = idDia;
   }
 
-  // evCtrl.excluirPrograma = function(idPrograma) {
-  //   evCtrl.programa.id = idPrograma;
-  //   evCtrl.isExclusao = true;
-  // }
-
-  evCtrl.deletar = function(id){
+  evCtrl.deletar = function(id, nome){
     evCtrl.mensagem = '';
-    if (id && confirm("Deseja realmente deletar programação?")) {
+    if (id && confirm('Deseja realmente deletar o evento '+nome+'?')) {
       EventoService.delete({id: id}, function(retorno){
         alert('Excluído com sucesso');
-        /*var index = evCtrl.programas.indexOf(programa);
-        evCtrl.programas.splice(index, 1);*/
         evCtrl.limpar();
       }, evCtrl.tratarErro);
     }
@@ -214,12 +170,11 @@ App.controller('eventoCtrl', function($scope, $resource, $base64){
   evCtrl.limpar = function(){
     evCtrl.mensagem = '';
     evCtrl.endereco = '';
-    evCtrl.logo = [];
     evCtrl.evento = {};
-    evCtrl.isDetalhar = false;
+    evCtrl.eventos = [];
+    //evCtrl.isDetalhar = false;
     evCtrl.uploaded = false;
-    evCtrl.isEdicao = false;
-    evCtrl.logoRemovido = false;
+    //evCtrl.isEdicao = false;
     limparUploadFileLabel();
   //  evCtrl.isExclusao = false;
     evCtrl.listar();

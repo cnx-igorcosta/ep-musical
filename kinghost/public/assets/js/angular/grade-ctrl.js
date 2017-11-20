@@ -5,6 +5,13 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
     get : { method: 'GET', isArray:true }
   });
 
+  var AdmService = $resource('/adm/', null, {
+    get : { method: 'GET', isArray:false },
+    post: { method: 'POST' },
+    put: {method: 'PUT' },
+  });
+
+  prgCtrl.ped = false;
   prgCtrl.logo = null;
   prgCtrl.programa = {};
   prgCtrl.diaNav = getDiaSemanaAtual();
@@ -31,6 +38,9 @@ App.controller('programacaoCtrl', function($scope, $resource, $base64){
   ];
 
   prgCtrl.iniciar = function(){
+    AdmService.get({}, function(retorno){
+      prgCtrl.ped = retorno.ped;
+    });
     prgCtrl.listar();
   };
 

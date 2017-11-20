@@ -82,9 +82,9 @@
 											</div>
 										</div>
 										<div class="row" ng-show="evCtrl.evento.id">
-											<div class="" ng-repeat="imgs in evCtrl.evento.imagens">
-												<img data-ng-src="{{imgs}}" >
-													<a href="" class="fa fa-trash" ng-click="prgCtrl.removerImagemEdicao()" style="padding-right:60%"></a>
+											<div class="4u 12u(mobilep)" ng-repeat="imgs in evCtrl.evento.imagens" style="padding-left:0px;padding-top:0px;">
+												<img data-ng-src="{{imgs}}" width="230px" height="230px">
+													<a id="excluir-imagem-evento" href="" class="fa fa-trash" ng-click="prgCtrl.removerImagemEdicao()"></a>
 												</img>
 											</div>
 										</div>

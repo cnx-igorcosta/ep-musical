@@ -40,106 +40,113 @@
 
 			<!-- Highlights -->
 				<section class="wrapper style1" ng-controller="programacaoCtrl as prgCtrl">
-					<div class="row">
-						<section class="3u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;"></section>
+					<div class="row" ng-hide="prgCtrl.ped">
 						<section id="programacao" class="6u 12u$(narrower) 12u$(mobilep)">
-							<h2>TRANSMISSÃO AO VIVO!</h2>
-							<h3>TUDO QUE ROLA AO VIVO PRA VOCÊ!</h3>
+							<h3>OCORREU UM ERRO INESPERADO!</h3>
 						</section>
-						<section class="3u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;"></section>
 					</div>
-					<div class="row">
-						<section class="3u 12u" style="padding-top:1em;"></section>
-						<section class="6u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;">
-							<!-- VIDEO SCRIPT -->
-							<link href="http://vjs.zencdn.net/6.0.0/video-js.css" rel="stylesheet">
-							<style>.video-js .vjs-time-control{display: none;}.video-js .vjs-progress-control{display: none;}</style>
-							<video id="player_webtv" class="video-js vjs-big-play-centered vjs-fluid" autoplay  controls preload="auto" width="100%" height="100%" data-setup="{ 'fluid':true,'aspectRatio':'16:9' }" >
-							   <source src="http://stmv2.video.foxsolucoes.net/walter9679/walter9679/playlist.m3u8" type="application/x-mpegURL">
-							</video>
-							<script src="//vjs.zencdn.net/6.0.0/video.js"></script>
-							<script src="//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.8.2/videojs-contrib-hls.min.js"></script>
-							<script>var myPlayer=videojs('player_webtv',{},function(){var player=this;player.on("pause",function(){player.one("play",function(){player.load();player.play();});});})</script>
-							<!-- END VIDEO SCRIPT -->
-						</section>
-						<section class="3u 12u" ></section>
-					</div>
-					<div class="row">
-						<section class="3u 12u" style="padding-top:1em;"></section>
-							<!-- CHAT SCRIPT -->
-							<iframe src="https://chatwing.com/chatbox/c4abf450-7c9e-11e7-b391-c1c8921d4a93" class="6u 12u(narrower) 12u$(mobilep)" style="height:300px; padding-top: 1em;" frameborder="0" scrolling="0">Please contact us at info@chatwing.com if you cant embed the chatbox</iframe>
-							<!-- END CHAT SCRIPT -->
-						<section class="3u 12u" style="padding-top:1em;"></section>
-					</div>
+					<div ng-show="prgCtrl.ped">
+						<div class="row">
+							<section class="3u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;"></section>
+							<section id="programacao" class="6u 12u$(narrower) 12u$(mobilep)">
+								<h2>TRANSMISSÃO AO VIVO!</h2>
+								<h3>TUDO QUE ROLA AO VIVO PRA VOCÊ!</h3>
+							</section>
+							<section class="3u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;"></section>
+						</div>
+						<div class="row">
+							<section class="3u 12u" style="padding-top:1em;"></section>
+							<section class="6u 12u(narrower) 12u$(mobilep)" style="padding-top:1em;">
+								<!-- VIDEO SCRIPT -->
+								<link href="http://vjs.zencdn.net/6.0.0/video-js.css" rel="stylesheet">
+								<style>.video-js .vjs-time-control{display: none;}.video-js .vjs-progress-control{display: none;}</style>
+								<video id="player_webtv" class="video-js vjs-big-play-centered vjs-fluid" autoplay  controls preload="auto" width="100%" height="100%" data-setup="{ 'fluid':true,'aspectRatio':'16:9' }" >
+								   <source src="http://stmv2.video.foxsolucoes.net/walter9679/walter9679/playlist.m3u8" type="application/x-mpegURL">
+								</video>
+								<script src="//vjs.zencdn.net/6.0.0/video.js"></script>
+								<script src="//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.8.2/videojs-contrib-hls.min.js"></script>
+								<script>var myPlayer=videojs('player_webtv',{},function(){var player=this;player.on("pause",function(){player.one("play",function(){player.load();player.play();});});})</script>
+								<!-- END VIDEO SCRIPT -->
+							</section>
+							<section class="3u 12u" ></section>
+						</div>
+						<div class="row">
+							<section class="3u 12u" style="padding-top:1em;"></section>
+								<!-- CHAT SCRIPT -->
+								<iframe src="https://chatwing.com/chatbox/c4abf450-7c9e-11e7-b391-c1c8921d4a93" class="6u 12u(narrower) 12u$(mobilep)" style="height:300px; padding-top: 1em;" frameborder="0" scrolling="0">Please contact us at info@chatwing.com if you cant embed the chatbox</iframe>
+								<!-- END CHAT SCRIPT -->
+							<section class="3u 12u" style="padding-top:1em;"></section>
+						</div>
 
-					<div class="row semana" ng-hide="prgCtrl.isDetalhar">
-						<section class="3u 12u(narrower)" style="padding-top:1em;">
-						</section>
-						<section id="programacao" class="6u 12u$(narrower) 12u$(mobilep)" style="padding-top: 0;">
-							<h2 id="titulo-grade">GRADE DE PROGRAMAÇÃO</h2>
-							<nav id="semana">
-								<ul>
-									<li ng-repeat="dia in prgCtrl.diasSemanaNav"
-											ng-class="{'current': dia.id === prgCtrl.diaNav}"
-											ng-click="prgCtrl.mostrarDia(dia.id)">{{dia.label}}</li>
-								</ul>
-							</nav>
-						</section>
-						<section class="3u 12u(narrower)" style="padding-top:1em;">
-					</div>
+						<div class="row semana" ng-hide="prgCtrl.isDetalhar">
+							<section class="3u 12u(narrower)" style="padding-top:1em;">
+							</section>
+							<section id="programacao" class="6u 12u$(narrower) 12u$(mobilep)" style="padding-top: 0;">
+								<h2 id="titulo-grade">GRADE DE PROGRAMAÇÃO</h2>
+								<nav id="semana">
+									<ul>
+										<li ng-repeat="dia in prgCtrl.diasSemanaNav"
+												ng-class="{'current': dia.id === prgCtrl.diaNav}"
+												ng-click="prgCtrl.mostrarDia(dia.id)">{{dia.label}}</li>
+									</ul>
+								</nav>
+							</section>
+							<section class="3u 12u(narrower)" style="padding-top:1em;">
+						</div>
 
-					<div ng-hide="prgCtrl.isDetalhar">
-						<div id="grade-programacao" class="row" ng-repeat="dia_semana in prgCtrl.programas" ng-show="dia_semana.dia === prgCtrl.diaNav">
-							<section class="3u 12u(narrower)"></section>
-							<section class="6u 12u(narrower)" style="padding-top:0;">
-								<div class="row">
-									<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" ng-class="dia_semana.programas.length == 2 || dia_semana.programas.length == 4 ? 'coluna-dois' : 'coluna-tres'" ng-repeat="prg in dia_semana.programas track by $index">
-										<div class="pic image-wrapper overlay-fade-in">
-											<img ng-src="{{prg.logo}}" fall-back-src="./images/programacao-ex.jpg">
-											<div class="image-overlay-content">
-												<div class="description">
-													<h2 class="10u 12u(narrower)">{{dia_semana.dia_nome}}&ensp;|&ensp;{{prg.hora_inicial}}</h2>
-													<i ng-click="prgCtrl.detalhar(prg);" class="fa fa-chevron-circle-right 2u(narrower)" aria-hidden="true"></i>
-													<h3 class="10u 12u(narrower)">{{prg.nome}}</h3><br>
-													<pre><p class="12u 12u(narrower)">{{prg.descricao}}</p><pre>
+						<div ng-hide="prgCtrl.isDetalhar">
+							<div id="grade-programacao" class="row" ng-repeat="dia_semana in prgCtrl.programas" ng-show="dia_semana.dia === prgCtrl.diaNav">
+								<section class="3u 12u(narrower)"></section>
+								<section class="6u 12u(narrower)" style="padding-top:0;">
+									<div class="row">
+										<div class="3u 12u(narrower) 12u(mobilep) coluna-programacao" ng-class="dia_semana.programas.length == 2 || dia_semana.programas.length == 4 ? 'coluna-dois' : 'coluna-tres'" ng-repeat="prg in dia_semana.programas track by $index">
+											<div class="pic image-wrapper overlay-fade-in">
+												<img ng-src="{{prg.logo}}" fall-back-src="./images/programacao-ex.jpg">
+												<div class="image-overlay-content">
+													<div class="description">
+														<h2 class="10u 12u(narrower)">{{dia_semana.dia_nome}}&ensp;|&ensp;{{prg.hora_inicial}}</h2>
+														<i ng-click="prgCtrl.detalhar(prg);" class="fa fa-chevron-circle-right 2u(narrower)" aria-hidden="true"></i>
+														<h3 class="10u 12u(narrower)">{{prg.nome}}</h3><br>
+														<pre><p class="12u 12u(narrower)">{{prg.descricao}}</p><pre>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+								</section>
+								<section class="3u 12u(narrower)"></section>
+							</div>
+						</div>
+
+
+						<div class="row" ng-show="prgCtrl.isDetalhar">
+							<section class="3u 12u(narrower)"></section>
+							<section class="6u 12u(narrower)">
+								<form>
+									<div id="detalhamento" class="row">
+										<div class="12u 12u(mobilep)"><img style="max-width: 100%;" data-ng-src="{{prgCtrl.programa.logo}}"></div>
+										<div class="2u 12u(mobilep)"><b>Programação:</b></div>
+										<div class="10u 12u(mobilep)">{{prgCtrl.programa.nome}}</div>
+										<div class="2u 12u(mobilep)"><b>Dia: </b></div>
+										<div class="10u 12u(mobilep)">{{prgCtrl.programa.label_semana}}</div>
+										<div class="2u 12u(mobilep)"><b>Horário: </b></div>
+										<div class="10u 12u(mobilep)">{{prgCtrl.programa.hora_inicial}} às {{prgCtrl.programa.hora_final}}</div>
+										<div class="2u 12u(mobilep)"><b>Descrição: </b></div>
+										<div class="10u 12u(mobilep)">{{prgCtrl.programa.descricao}}</div>
+									</div>
+									<div class="row">
+										<div class="12u">
+											<ul class="actions">
+												<li><a class="button alt" ng-click="prgCtrl.limpar()" href="#semana">Voltar</a></li>
+											</ul>
+										</div>
+									</div>
+								</form>
 							</section>
 							<section class="3u 12u(narrower)"></section>
 						</div>
-					</div>
-
-
-					<div class="row" ng-show="prgCtrl.isDetalhar">
-						<section class="3u 12u(narrower)"></section>
-						<section class="6u 12u(narrower)">
-							<form>
-								<div id="detalhamento" class="row">
-									<div class="12u 12u(mobilep)"><img style="max-width: 100%;" data-ng-src="{{prgCtrl.programa.logo}}"></div>
-									<div class="2u 12u(mobilep)"><b>Programação:</b></div>
-									<div class="10u 12u(mobilep)">{{prgCtrl.programa.nome}}</div>
-									<div class="2u 12u(mobilep)"><b>Dia: </b></div>
-									<div class="10u 12u(mobilep)">{{prgCtrl.programa.label_semana}}</div>
-									<div class="2u 12u(mobilep)"><b>Horário: </b></div>
-									<div class="10u 12u(mobilep)">{{prgCtrl.programa.hora_inicial}} às {{prgCtrl.programa.hora_final}}</div>
-									<div class="2u 12u(mobilep)"><b>Descrição: </b></div>
-									<div class="10u 12u(mobilep)">{{prgCtrl.programa.descricao}}</div>
-								</div>
-								<div class="row">
-									<div class="12u">
-										<ul class="actions">
-											<li><a class="button alt" ng-click="prgCtrl.limpar()" href="#semana">Voltar</a></li>
-										</ul>
-									</div>
-								</div>
-							</form>
-						</section>
-						<section class="3u 12u(narrower)"></section>
+					</section>
 					</div>
 				</section>
-
 			<!-- Footer -->
 				<div id="footer">
 					<div class="container">
